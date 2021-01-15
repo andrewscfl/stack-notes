@@ -15,7 +15,7 @@ html,body {
     padding:10px 20px;
 
 }
-p, h2, a{
+p, h2, a, .SN-Notes{
     font-family: monospace;
 }
 .SN-top-bar h1, .SN-top-bar p{
@@ -55,6 +55,7 @@ border-radius: 5px;
 padding: 7px;
 color: white;
 cursor:pointer;
+z-index: 99999999;
 
 }
 
@@ -91,7 +92,7 @@ cursor:pointer;
     
 }
 
-.SN-main-content-area textarea{
+.SN-main-content-area .SN-Notes{
     background-color: #404040;
     box-sizing: border-box;
     color: white;
@@ -109,7 +110,7 @@ cursor:pointer;
 
 
 
-.SN-main-content-area textarea:focus {
+.SN-main-content-area .SN-Notes:focus {
     outline: none !important;
 }
 
