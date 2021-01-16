@@ -77,7 +77,7 @@ let ipc = require('electron').ipcRenderer;
             let date = new Date();
             let now = date.getTime();
             let stringNow = now.toString();
-            let uniqueID = title + "-" + stringNow;
+            let uniqueID = title.replace(new RegExp(' ', 'g'), "-") + "-" + stringNow;
             
 
             let saveData = {
