@@ -25,7 +25,20 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
-})
+});
+
+ipcMain.on('init', (event, args) => {
+    fs.readFile('files/track.json', 'utf-8', (err, data) => {
+      if (err) {
+        console.log(err);
+        event.returnValue = {success : false};
+      }
+      else{
+        let parsedJson = JSON.parse(data);
+        event.returnValue = parsedJson;
+      }
+    });
+});
 
 
 ipcMain.on('write-Note', (event, args) => {
@@ -89,6 +102,36 @@ ipcMain.on('get-contents', (event, args) => {
       let parsedData = JSON.parse(data);
       event.returnValue = parsedData;
     }
+  });
+});
+
+
+
+ipcMain.on('save-contents', (event,args) => {
+  let toSave = args.contents;
+  let filename = args.filename;
+  fs.readFile(`files/${filename}`, 'utf-8', (err,data) => {
+    if (err){
+      console.log(err);
+      event.returnValue = {success : false};
+
+    }
+    else{
+      let parsedJSON = JSON.parse(data);
+      parsedJSON.content = toSave;
+      let stringReadyToSave = JSON.stringify(parsedJSON);
+      fs.writeFile(`files/${filename}`, stringReadyToSave, (err)=>{
+        if (err){
+          console.log(err);
+          event.returnValue = {success : false};
+
+        }
+        else{
+          event.returnValue = {success : true};
+        }
+      });
+    }
+
   });
 });
 
