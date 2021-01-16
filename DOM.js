@@ -2,30 +2,54 @@ let ipc = require('electron').ipcRenderer;
 
 
 (function () {
-
     // test sending data to other process
-
-
-
-
-
-
+    function cl(log){
+        return console.log(log);
+    }
 
     function $(elem) {
         return document.querySelector(elem);
     }
 
-    function buildEntry(title, content, uniqueID) {
-        let strippedContent = content.substring(0, 25) + "...";
-        let mUID = uniqueID.split(" ").join("-");
+    function paint_main(data){
+        let note_title = data.title;
+        let note_body = data.content;
+        document.querySelector('.SN-main-content-note-title').innerHTML = note_title;
+        document.querySelector('.SN-Notes').innerHTML = note_body;
+
+    }
+
+    function paint_sidebar(data) {
+        let mUID = data.uid;
+        let title = data.notetitle;
+        let strippedContent = data.body.substring(0,25);
         let inner = `
         <div class="SN-main-sidebar-elem ${mUID}">
                     <div class="SN-main-sidebar-elem-title">${title}</div>
                     <div class="SN-main-sidebar-elem-content-preview">${strippedContent}</div>
                 </div>
         `;
+        let builDom = document.createElement('div');
+        builDom.innerHTML = inner;
+        let targetFile = builDom.querySelector('.SN-main-sidebar-elem').classList[1].concat('.json');
+        builDom.querySelector('.SN-main-sidebar-elem').addEventListener('click', (e)=>{
+            let response_get_file = ipc.sendSync('get-contents', targetFile);
+            paint_main(response_get_file);
+            
+        });
+        
 
-        return inner;
+        document.querySelector('.SN-main-sidebar-content').appendChild(builDom);
+    }
+
+
+    function write_File(data){
+        let response = ipc.sendSync('write-Note',data);
+        return response;
+    }
+    
+    function read_file(){
+
     }
 
 
@@ -53,10 +77,8 @@ let ipc = require('electron').ipcRenderer;
             let date = new Date();
             let now = date.getTime();
             let stringNow = now.toString();
-            let uniqueID = title.concat(stringNow);
-            let element = buildEntry(title, content, uniqueID);
-            let elemWrapper = document.createElement('div');
-            elemWrapper.innerHTML = element;
+            let uniqueID = title + "-" + stringNow;
+            
 
             let saveData = {
                 uid: uniqueID,
@@ -65,17 +87,9 @@ let ipc = require('electron').ipcRenderer;
             };
 
             //call to main process to write file
-            ipc.send('write-Note', saveData);
-            ipc.on('write-Note-Reply', (event, args) => {
-                console.log(args);
-            });
+            let response_write = write_File(saveData);
+            paint_sidebar(saveData);
             //end call to main process
-            $(".SN-main-sidebar-content").appendChild(elemWrapper);
-            elemWrapper.addEventListener('click',(e)=> {
-                let target = e.currentTarget;
-                let targetClassList = target.querySelector('.SN-main-sidebar-elem').classList;
-                console.log(targetClassList);
-            });
 
         });
     });

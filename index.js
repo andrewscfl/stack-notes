@@ -35,8 +35,6 @@ ipcMain.on('write-Note', (event, args) => {
     content : args.body
   };
 
-  
-
   let dataReadyToWrite = JSON.stringify(data);
   let filepath = args.uid.split(" ").join("-");
   let date = new Date();
@@ -50,13 +48,13 @@ ipcMain.on('write-Note', (event, args) => {
   fs.writeFile(`files/${filepath}.json`, dataReadyToWrite, (err) => {
     if (err) {
       console.log(err);
-      event.sender.send('write-Note-Reply', {success: false});
+      event.returnValue =  {success: false};
     } 
     else{
       fs.readFile('files/track.json','utf-8',(err, data) => {
         if(err){
           console.log(err);
-          event.sender.send('write-Note-Reply', {success: false});
+          event.returnValue = {success: false};
         }
         else{
           let parsedData = JSON.parse(data);
@@ -65,10 +63,11 @@ ipcMain.on('write-Note', (event, args) => {
           fs.writeFile('files/track.json', stringToPush, (err)=>{
             if(err){
               console.log(err);
+              event.returnValue = {success: false};
             }
             else{
               console.log('written correctly');
-              event.sender.send('write-Note-Reply', {success : true});
+              event.returnValue = {success : true};
             }
           });
         }
@@ -77,4 +76,20 @@ ipcMain.on('write-Note', (event, args) => {
     
   });
   
-})
+});
+
+ipcMain.on('get-contents', (event, args) => {
+  let filename = args;
+  fs.readFile(`files/${filename}`, 'utf-8', (err, data) => {
+    if (err){
+      console.log(err);
+      event.returnValue = {success: false};
+    }
+    else{
+      let parsedData = JSON.parse(data);
+      event.returnValue = parsedData;
+    }
+  });
+});
+
+
