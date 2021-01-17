@@ -74,6 +74,9 @@ function write_File(data) {
 
 
 
+
+
+
 (function () {
     // test sending data to other process
 
@@ -149,6 +152,37 @@ function write_File(data) {
         else{
             console.log('error');
         }
+    });
+
+
+
+    $('.code').addEventListener('click', (event) => {
+        let num_of_codeBlocks = (function(){
+            let value = $('.SN-note-num-code-blocks').innerHTML;
+            if (value == ""){
+                return 0;
+            }
+            else{
+                return parseInt($('.SN-note-num-code-blocks').innerHTML);
+            }
+        })();
+        
+
+        let editor = document.createElement('div');
+        let notePreTagStripped = $('.SN-note-tag').innerHTML;
+        let noteTagStripped = notePreTagStripped.replace('.json', '');
+        let calc_id = noteTagStripped + `-${num_of_codeBlocks}`;
+        editor.id = calc_id;
+        editor.style.width = "100%";
+        editor.style.height = "300px";
+        let myBreak = document.createElement('br');
+        $('.SN-Notes').appendChild(myBreak);
+        $('.SN-Notes').appendChild(editor);
+        $('.SN-Notes').appendChild(myBreak);
+        let editorFrame = ace.edit(calc_id);
+        editorFrame.setTheme("ace/theme/twilight");
+
+
     });
 
 
