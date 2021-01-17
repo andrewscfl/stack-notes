@@ -9,11 +9,13 @@ function $(elem) {
 }
 
 
-function clear_main_pain(){
+function clear_main_pain() {
     $('.SN-main-content-note-title').innerHTML = "";
     $('.SN-main-content-note-title').style.display = "none";
     $('.SN-Notes').innerHTML = "";
 }
+
+
 
 
 function init_paint() {
@@ -38,9 +40,9 @@ function paint_main(data, filename) {
     let noteDOM = document.createElement('div');
     noteDOM.innerHTML = note_body;
 
-   
-   
-    
+
+
+
     document.querySelector('.SN-note-tag').innerHTML = filename;
     document.querySelector('.SN-main-content-note-title').style.display = "flex";
     document.querySelector('.SN-main-content-note-title').innerHTML = note_title;
@@ -51,8 +53,8 @@ function paint_main(data, filename) {
         let edID = ed.id;
         cl(edID);
         ace.edit(edID).setTheme("ace/theme/twilight");
-        
-        
+
+
     });
 
 }
@@ -139,7 +141,7 @@ function write_File(data) {
 
 
 
-    $('.save').addEventListener('click',(event) => {
+    $('.save').addEventListener('click', (event) => {
         let editableDom = $('.SN-Notes');
         let editors = editableDom.querySelectorAll('.editor');
         let editorData = [];
@@ -148,7 +150,7 @@ function write_File(data) {
             let value = editor.id;
             let text = ace.edit(value).getValue();
             let editorPackage = {
-                id : value,
+                id: value,
                 inner: text
             };
             editorData.push(editorPackage);
@@ -158,8 +160,8 @@ function write_File(data) {
         let targetContent = $('.SN-Notes');
         let clonedDom = targetContent.cloneNode(true);
         let codeEditors = clonedDom.querySelectorAll('.editor');
-        
-        for (let i = 0; i < codeEditors.length; i++){
+
+        for (let i = 0; i < codeEditors.length; i++) {
             let elem = document.createElement('div');
             elem.id = editorData[i].id;
             elem.className = "editor";
@@ -173,14 +175,14 @@ function write_File(data) {
 
         cl(content);
         let response = ipc.sendSync('save-contents', {
-            contents : clonedDom.innerHTML,
-            filename : document.querySelector('.SN-note-tag').innerHTML
+            contents: clonedDom.innerHTML,
+            filename: document.querySelector('.SN-note-tag').innerHTML
         });
-        if (response.success){
+        if (response.success) {
             cl('worked');
             init_paint();
         }
-        else{
+        else {
             cl('not');
         }
     });
@@ -189,12 +191,12 @@ function write_File(data) {
     $('.delete').addEventListener('click', (event) => {
         let targetNote = $('.SN-note-tag').innerHTML;
         let response = ipc.sendSync('del-note', targetNote);
-        if (response.success){
+        if (response.success) {
             console.log('deleted');
             clear_main_pain();
             init_paint();
         }
-        else{
+        else {
             console.log('error');
         }
     });
@@ -202,21 +204,15 @@ function write_File(data) {
 
 
     $('.code').addEventListener('click', (event) => {
-        let num_of_codeBlocks = (function(){
-            let value = $('.SN-note-num-code-blocks').innerHTML;
-            if (value == ""){
-                return 0;
-            }
-            else{
-                return parseInt($('.SN-note-num-code-blocks').innerHTML);
-            }
-        })();
-        
+
 
         let editor = document.createElement('div');
         let notePreTagStripped = $('.SN-note-tag').innerHTML;
         let noteTagStripped = notePreTagStripped.replace('.json', '');
-        let calc_id = noteTagStripped + `-${num_of_codeBlocks}`;
+        let date = new Date();
+        let now = date.getTime();
+        let stringNow = now.toString();
+        let calc_id = noteTagStripped + `-${stringNow}`;
         editor.id = calc_id;
         editor.className = "editor";
         editor.style.width = "100%";
@@ -241,13 +237,38 @@ function write_File(data) {
         $('.SN-Notes').appendChild(languageSelector);
         $('.SN-Notes').appendChild(myBreak);
         let editorFrame = ace.edit(calc_id);
-        editorFrame.setTheme("ace/theme/twilight");
-        let new_num = num_of_codeBlocks += 1;
+        editorFrame.setTheme("ace/theme/idle_fingers");
+    
 
-        let newNumOfCodeBlocks = new_num.toString();
-        cl(newNumOfCodeBlocks);
+        //add event listeners for changes
 
-        $('.SN-note-num-code-blocks').innerHTML = newNumOfCodeBlocks;
+
+        let selectors = languageSelector.querySelector('#languages');
+        selectors.addEventListener('change', (event) => {
+            let selected = event.target.value;
+            cl(selected + " was appliied on " + editor.id);
+            if (selected == "C") {
+                editorFrame.session.setMode("ace/mode/c_cpp");
+            }
+            else if(selected == "C#"){
+                editorFrame.session.setMode("ace/mode/csharp");
+            }
+            else if(selected == "C++"){
+                editorFrame.session.setMode("ace/mode/c_cpp");
+            }
+            else if(selected == "Java"){
+                editorFrame.session.setMode("ace/mode/java");
+            }
+            else if(selected == "JavaScript"){
+                editorFrame.session.setMode("ace/mode/javascript");
+            }
+            else if (selected == "Python"){
+                editorFrame.session.setMode("ace/mode/python");
+            }
+
+        });
+
+        //end event listeners for changes
 
 
 
