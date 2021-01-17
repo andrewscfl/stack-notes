@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const fs = require('fs');
 
-function createWindow () {
+function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -28,24 +28,24 @@ app.on('activate', () => {
 });
 
 ipcMain.on('init', (event, args) => {
-    fs.readFile('files/track.json', 'utf-8', (err, data) => {
-      if (err) {
-        console.log(err);
-        event.returnValue = {success : false};
-      }
-      else{
-        let parsedJson = JSON.parse(data);
-        event.returnValue = parsedJson;
-      }
-    });
+  fs.readFile('files/track.json', 'utf-8', (err, data) => {
+    if (err) {
+      console.log(err);
+      event.returnValue = { success: false };
+    }
+    else {
+      let parsedJson = JSON.parse(data);
+      event.returnValue = parsedJson;
+    }
+  });
 });
 
 
 ipcMain.on('write-Note', (event, args) => {
   console.log(args);
   let data = {
-    title : args.notetitle,
-    content : args.body
+    title: args.notetitle,
+    content: args.body
   };
 
   let dataReadyToWrite = JSON.stringify(data);
@@ -61,44 +61,44 @@ ipcMain.on('write-Note', (event, args) => {
   fs.writeFile(`files/${filepath}.json`, dataReadyToWrite, (err) => {
     if (err) {
       console.log(err);
-      event.returnValue =  {success: false};
-    } 
-    else{
-      fs.readFile('files/track.json','utf-8',(err, data) => {
-        if(err){
+      event.returnValue = { success: false };
+    }
+    else {
+      fs.readFile('files/track.json', 'utf-8', (err, data) => {
+        if (err) {
           console.log(err);
-          event.returnValue = {success: false};
+          event.returnValue = { success: false };
         }
-        else{
+        else {
           let parsedData = JSON.parse(data);
           parsedData.unshift(log);
           let stringToPush = JSON.stringify(parsedData);
-          fs.writeFile('files/track.json', stringToPush, (err)=>{
-            if(err){
+          fs.writeFile('files/track.json', stringToPush, (err) => {
+            if (err) {
               console.log(err);
-              event.returnValue = {success: false};
+              event.returnValue = { success: false };
             }
-            else{
+            else {
               console.log('written correctly');
-              event.returnValue = {success : true};
+              event.returnValue = { success: true };
             }
           });
         }
       });
     }
-    
+
   });
-  
+
 });
 
 ipcMain.on('get-contents', (event, args) => {
   let filename = args;
   fs.readFile(`files/${filename}`, 'utf-8', (err, data) => {
-    if (err){
+    if (err) {
       console.log(err);
-      event.returnValue = {success: false};
+      event.returnValue = { success: false };
     }
-    else{
+    else {
       let parsedData = JSON.parse(data);
       event.returnValue = parsedData;
     }
@@ -107,32 +107,71 @@ ipcMain.on('get-contents', (event, args) => {
 
 
 
-ipcMain.on('save-contents', (event,args) => {
+ipcMain.on('save-contents', (event, args) => {
   let toSave = args.contents;
   let filename = args.filename;
-  fs.readFile(`files/${filename}`, 'utf-8', (err,data) => {
-    if (err){
+  fs.readFile(`files/${filename}`, 'utf-8', (err, data) => {
+    if (err) {
       console.log(err);
-      event.returnValue = {success : false};
+      event.returnValue = { success: false };
 
     }
-    else{
+    else {
       let parsedJSON = JSON.parse(data);
       parsedJSON.content = toSave;
       let stringReadyToSave = JSON.stringify(parsedJSON);
-      fs.writeFile(`files/${filename}`, stringReadyToSave, (err)=>{
-        if (err){
+      fs.writeFile(`files/${filename}`, stringReadyToSave, (err) => {
+        if (err) {
           console.log(err);
-          event.returnValue = {success : false};
+          event.returnValue = { success: false };
 
         }
-        else{
-          event.returnValue = {success : true};
+        else {
+          event.returnValue = { success: true };
         }
       });
     }
 
   });
+});
+
+
+ipcMain.on('del-note', (event, args) => {
+  let fileToDel = args;
+  let path = `files/${fileToDel}`;
+  fs.unlink(path, (err) => {
+    if (err) {
+      console.log(err);
+      event.returnValue = { success: false };
+    }
+    else {
+      fs.readFile('files/track.json', 'utf-8', (err, data) => {
+        if (err) {
+          console.log(err);
+          event.returnValue = { success: false };
+        }
+        else {
+          let parsed = JSON.parse(data);
+          for (let i = 0; i < parsed.length; i++) {
+            if (parsed[i].fp == fileToDel) {
+              parsed.splice(i, 1);
+            }
+          }
+          let stringParsed = JSON.stringify(parsed);
+          fs.writeFile('files/track.json', stringParsed, (err) => {
+            if (err) {
+              console.log(err);
+              event.returnValue = { success: false };
+            }
+            else {
+              event.returnValue = { success: true };
+            }
+          });
+        }
+      });
+    }
+  });
+
 });
 
 

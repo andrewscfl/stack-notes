@@ -9,6 +9,13 @@ function $(elem) {
 }
 
 
+function clear_main_pain(){
+    $('.SN-main-content-note-title').innerHTML = "";
+    $('.SN-main-content-note-title').style.display = "none";
+    $('.SN-Notes').innerHTML = "";
+}
+
+
 function init_paint() {
     document.querySelector('.SN-main-sidebar-content').innerHTML = "";
     let data = ipc.sendSync('init');
@@ -29,6 +36,7 @@ function paint_main(data, filename) {
     let note_title = data.title;
     let note_body = data.content;
     document.querySelector('.SN-note-tag').innerHTML = filename;
+    document.querySelector('.SN-main-content-note-title').style.display = "flex";
     document.querySelector('.SN-main-content-note-title').innerHTML = note_title;
     document.querySelector('.SN-Notes').innerHTML = note_body;
 
@@ -113,8 +121,8 @@ function write_File(data) {
 
 
 
-    $('.SN-main-content-save').addEventListener('click',(event) => {
-        let content = $('.SN-Notes').innerText;
+    $('.save').addEventListener('click',(event) => {
+        let content = $('.SN-Notes').innerHTML;
         cl(content);
         let response = ipc.sendSync('save-contents', {
             contents : content,
@@ -126,6 +134,20 @@ function write_File(data) {
         }
         else{
             cl('not');
+        }
+    });
+
+
+    $('.delete').addEventListener('click', (event) => {
+        let targetNote = $('.SN-note-tag').innerHTML;
+        let response = ipc.sendSync('del-note', targetNote);
+        if (response.success){
+            console.log('deleted');
+            clear_main_pain();
+            init_paint();
+        }
+        else{
+            console.log('error');
         }
     });
 

@@ -15,7 +15,7 @@ html,body {
     padding:10px 20px;
 
 }
-p, h2, a, .SN-Notes{
+p, h2, a, .SN-Notes, .save, .delete{
     font-family: monospace;
 }
 .SN-top-bar h1, .SN-top-bar p{
@@ -99,7 +99,7 @@ z-index: 99999999;
     padding: 10px;
     border-color:black;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 5px 5px 0px 5px;
     height: calc(100vh - 96px);
     resize: none;
     overflow-y:scroll;
@@ -127,25 +127,14 @@ z-index: 99999999;
     
 }
 
-.circular-button{
-    flex: 1;
-    border-width: 1px;
-    
-    border-color: white;
-    border-style: solid;
-    padding: 10px;
-    width: 100%;
-    text-align:center;
-    cursor: pointer;
+.SN-main-sidebar-controls-plus{
+width: 100%;
+background-color: rgb(47,47,47);
+text-align:center;
+cursor: pointer;
 }
 
-.SN-main-sidebar-controls-plus{
-    border-radius: 0px 0px 0px 5px;
-   
-}
-.SN-main-sidebar-controls-del{
-    border-radius: 0px 0px 5px 0px;
-}
+
 
 .SN-main-content-note-title{
     font-size: 25px;
@@ -154,6 +143,7 @@ z-index: 99999999;
     font-weight: 900;
     margin-bottom: 10px !important;
     margin-top: 0px;
+    display: none;
 }
 
 
@@ -198,25 +188,40 @@ z-index: 99999999;
 .SN-main-content-save{
     background-color: rgb(36,36,36);
     text-align:right;
-    margin-top: 10px;
+    
 
 }
 
 .SN-main-content-save .save{
     color: white;
     cursor:pointer;
-    border-style: solid;
-    border-color: white;
-    border-width: 1px;
-    border-radius: 100px;
+    background-color: rgb(47,47,47);
+    width: 150px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
-    
+    border-radius: 0px 0px 5px 5px;
     float:right;
 }
+
+.SN-main-content-save .delete{
+    color: white;
+    cursor:pointer;
+    background-color: #f92672;
+    width: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 0px 0px 5px 5px;
+    float:right;
+}
+
+
 
 
 
