@@ -35,10 +35,25 @@ function init_paint() {
 function paint_main(data, filename) {
     let note_title = data.title;
     let note_body = data.content;
+    let noteDOM = document.createElement('div');
+    noteDOM.innerHTML = note_body;
+
+   
+   
+    
     document.querySelector('.SN-note-tag').innerHTML = filename;
     document.querySelector('.SN-main-content-note-title').style.display = "flex";
     document.querySelector('.SN-main-content-note-title').innerHTML = note_title;
-    document.querySelector('.SN-Notes').innerHTML = note_body;
+    document.querySelector('.SN-Notes').innerHTML = noteDOM.innerHTML;
+
+    let activeEditors = noteDOM.querySelectorAll('.editor');
+    activeEditors.forEach((ed) => {
+        let edID = ed.id;
+        cl(edID);
+        ace.edit(edID).setTheme("ace/theme/twilight");
+        
+        
+    });
 
 }
 
@@ -125,10 +140,40 @@ function write_File(data) {
 
 
     $('.save').addEventListener('click',(event) => {
+        let editableDom = $('.SN-Notes');
+        let editors = editableDom.querySelectorAll('.editor');
+        let editorData = [];
+
+        editors.forEach(editor => {
+            let value = editor.id;
+            let text = ace.edit(value).getValue();
+            let editorPackage = {
+                id : value,
+                inner: text
+            };
+            editorData.push(editorPackage);
+        });
+
         let content = $('.SN-Notes').innerHTML;
+        let targetContent = $('.SN-Notes');
+        let clonedDom = targetContent.cloneNode(true);
+        let codeEditors = clonedDom.querySelectorAll('.editor');
+        
+        for (let i = 0; i < codeEditors.length; i++){
+            let elem = document.createElement('div');
+            elem.id = editorData[i].id;
+            elem.className = "editor";
+            elem.innerHTML = editorData[i].inner;
+            codeEditors[i].replaceWith(elem);
+        }
+        cl('printing virtual editor');
+        cl(clonedDom.innerHTML);
+
+
+
         cl(content);
         let response = ipc.sendSync('save-contents', {
-            contents : content,
+            contents : clonedDom.innerHTML,
             filename : document.querySelector('.SN-note-tag').innerHTML
         });
         if (response.success){
@@ -173,14 +218,38 @@ function write_File(data) {
         let noteTagStripped = notePreTagStripped.replace('.json', '');
         let calc_id = noteTagStripped + `-${num_of_codeBlocks}`;
         editor.id = calc_id;
+        editor.className = "editor";
         editor.style.width = "100%";
         editor.style.height = "300px";
         let myBreak = document.createElement('br');
+        let languageSelectorinner = `
+        <select name="languages" id="languages">
+        <option value="PT">Plain Text</option>
+        <option value="C">C</option>
+        <option value="C#">C#</option>
+        <option value="C++">C++</option>
+        <option value="Java">Java</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Python">Python</option>
+        </select> 
+        `;
+        let languageSelector = document.createElement('div');
+        languageSelector.innerHTML = languageSelectorinner;
+
         $('.SN-Notes').appendChild(myBreak);
         $('.SN-Notes').appendChild(editor);
+        $('.SN-Notes').appendChild(languageSelector);
         $('.SN-Notes').appendChild(myBreak);
         let editorFrame = ace.edit(calc_id);
         editorFrame.setTheme("ace/theme/twilight");
+        let new_num = num_of_codeBlocks += 1;
+
+        let newNumOfCodeBlocks = new_num.toString();
+        cl(newNumOfCodeBlocks);
+
+        $('.SN-note-num-code-blocks').innerHTML = newNumOfCodeBlocks;
+
+
 
 
     });
