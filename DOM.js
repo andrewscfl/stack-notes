@@ -52,7 +52,40 @@ function paint_main(data, filename) {
     activeEditors.forEach((ed) => {
         let edID = ed.id;
         cl(edID);
-        ace.edit(edID).setTheme("ace/theme/twilight");
+        let frame = ace.edit(edID);
+        frame.setTheme("ace/theme/idle_fingers");
+        cl('PRINTING NEXT');
+        let sel = ed.nextElementSibling;
+        
+        let targetLang = sel.querySelector('#languages').dataset.lang;
+        sel.querySelector('#languages').value = targetLang;
+        cl(targetLang);
+
+
+        //init languages
+
+        if (targetLang == "C") {
+            frame.session.setMode("ace/mode/c_cpp");
+        }
+        else if(targetLang == "C#"){
+            frame.session.setMode("ace/mode/csharp");
+        }
+        else if(targetLang == "C++"){
+            frame.session.setMode("ace/mode/c_cpp");
+        }
+        else if(targetLang == "Java"){
+            frame.session.setMode("ace/mode/java");
+        }
+        else if(targetLang == "JavaScript"){
+            frame.session.setMode("ace/mode/javascript");
+        }
+        else if (targetLang == "Python"){
+            frame.session.setMode("ace/mode/python");
+        }
+
+        //end languages
+
+
 
 
     });
@@ -219,7 +252,7 @@ function write_File(data) {
         editor.style.height = "300px";
         let myBreak = document.createElement('br');
         let languageSelectorinner = `
-        <select name="languages" id="languages">
+        <select name="languages" id="languages" data-lang="PT">
         <option value="PT">Plain Text</option>
         <option value="C">C</option>
         <option value="C#">C#</option>
@@ -246,6 +279,7 @@ function write_File(data) {
         let selectors = languageSelector.querySelector('#languages');
         selectors.addEventListener('change', (event) => {
             let selected = event.target.value;
+            selectors.dataset.lang = selected;
             cl(selected + " was appliied on " + editor.id);
             if (selected == "C") {
                 editorFrame.session.setMode("ace/mode/c_cpp");
