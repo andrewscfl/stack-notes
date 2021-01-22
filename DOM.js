@@ -56,7 +56,7 @@ function paint_main(data, filename) {
         frame.setTheme("ace/theme/idle_fingers");
         cl('PRINTING NEXT');
         let sel = ed.nextElementSibling;
-        
+
         let targetLang = sel.querySelector('#languages').dataset.lang;
         sel.querySelector('#languages').value = targetLang;
         cl(targetLang);
@@ -67,19 +67,19 @@ function paint_main(data, filename) {
         if (targetLang == "C") {
             frame.session.setMode("ace/mode/c_cpp");
         }
-        else if(targetLang == "C#"){
+        else if (targetLang == "C#") {
             frame.session.setMode("ace/mode/csharp");
         }
-        else if(targetLang == "C++"){
+        else if (targetLang == "C++") {
             frame.session.setMode("ace/mode/c_cpp");
         }
-        else if(targetLang == "Java"){
+        else if (targetLang == "Java") {
             frame.session.setMode("ace/mode/java");
         }
-        else if(targetLang == "JavaScript"){
+        else if (targetLang == "JavaScript") {
             frame.session.setMode("ace/mode/javascript");
         }
-        else if (targetLang == "Python"){
+        else if (targetLang == "Python") {
             frame.session.setMode("ace/mode/python");
         }
 
@@ -116,12 +116,49 @@ function paint_sidebar(data) {
     document.querySelector('.SN-main-sidebar-content').appendChild(builDom);
 }
 
+function build_popup(inner) {
+    let wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+        <div class="popup-container">
+        <div class="popup-close">X</div>
+        ${inner}
+        </div>
+        `;
+
+    document.body.appendChild(wrapper);
+    $('.popup-close').addEventListener('click', () => {
+        $('.popup-container').remove();
+    });
+
+}
+
 
 function write_File(data) {
     let response = ipc.sendSync('write-Note', data);
     return response;
 }
 
+
+function confirm(callback) {
+    let contents = `
+        <h2>Delete Note?</h2>
+        <a class="btn" id="DelConf">Delete Note</a>
+        <a class="btn" id="CancelConf">Cancel Note</a>
+        `;
+
+    build_popup(contents);
+
+
+    $('#DelConf').addEventListener('click', () => {
+        callback();
+    });
+
+    $('#CancelConf').addEventListener('click', () => {
+        $('.popup-container').remove();
+    });
+
+
+}
 
 
 
@@ -133,21 +170,15 @@ function write_File(data) {
     init_paint();
 
     $('.SN-main-sidebar-controls-plus').addEventListener('click', () => {
-        let popup = document.createElement('div');
-        popup.innerHTML = `
-        <div class="popup-container">
-        <div class="popup-close">X</div>
+        let contents = `
         <h2>NOTE TITLE</h2>
         <div class="popup-input">
         <input type="text" id="note-title">
         </div>
         <a class="btn" id="noteCreation">Create Note</a>
-        </div>
         `;
-        document.body.appendChild(popup);
-        $('.popup-close').addEventListener('click', () => {
-            $('.popup-container').remove();
-        });
+        
+        build_popup(contents);
 
         $("#noteCreation").addEventListener('click', () => {
             let title = $('#note-title').value;
@@ -223,15 +254,17 @@ function write_File(data) {
 
     $('.delete').addEventListener('click', (event) => {
         let targetNote = $('.SN-note-tag').innerHTML;
-        let response = ipc.sendSync('del-note', targetNote);
-        if (response.success) {
-            console.log('deleted');
-            clear_main_pain();
-            init_paint();
-        }
-        else {
-            console.log('error');
-        }
+        confirm(() => {
+            let response = ipc.sendSync('del-note', targetNote);
+            if (response.success) {
+                console.log('deleted');
+                clear_main_pain();
+                init_paint();
+            }
+            else {
+                console.log('error');
+            }
+        });
     });
 
 
@@ -271,7 +304,7 @@ function write_File(data) {
         $('.SN-Notes').appendChild(myBreak);
         let editorFrame = ace.edit(calc_id);
         editorFrame.setTheme("ace/theme/idle_fingers");
-    
+
 
         //add event listeners for changes
 
@@ -284,19 +317,19 @@ function write_File(data) {
             if (selected == "C") {
                 editorFrame.session.setMode("ace/mode/c_cpp");
             }
-            else if(selected == "C#"){
+            else if (selected == "C#") {
                 editorFrame.session.setMode("ace/mode/csharp");
             }
-            else if(selected == "C++"){
+            else if (selected == "C++") {
                 editorFrame.session.setMode("ace/mode/c_cpp");
             }
-            else if(selected == "Java"){
+            else if (selected == "Java") {
                 editorFrame.session.setMode("ace/mode/java");
             }
-            else if(selected == "JavaScript"){
+            else if (selected == "JavaScript") {
                 editorFrame.session.setMode("ace/mode/javascript");
             }
-            else if (selected == "Python"){
+            else if (selected == "Python") {
                 editorFrame.session.setMode("ace/mode/python");
             }
 
