@@ -175,3 +175,25 @@ ipcMain.on('del-note', (event, args) => {
 });
 
 
+ipcMain.on('export-note', (event,args)=>{
+  let note_to_export = args.chosen_file;
+  let path_to_export_to = args.export_path;
+
+  let path = `files/${note_to_export}`;
+  fs.readFile(path, 'utf-8', (err, data)=>{
+    if(err){
+      event.returnValue = {success : false};
+    }
+    fs.writeFile(path_to_export_to, data, (err) => {
+      if (err){
+        event.returnValue = {success : false};
+      }
+      else{
+        event.returnValue = {success : true};
+      }
+    });
+
+  });
+});
+
+
