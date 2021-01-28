@@ -5,6 +5,10 @@ body{
     overflow-x: hidden;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+  }
+
 html,body {
     height:100%;
 }
@@ -47,6 +51,10 @@ p, h2, a, .SN-Notes, .save, .delete, .code{
     min-width: 100px;
     overflow-y: scroll;
 }
+
+.SN-main-sidebar::-webkit-scrollbar {
+    display: none;
+  }
 
 .SN-main-sidebar-elem{
 background-color: rgb(36,36,36);
@@ -107,6 +115,10 @@ z-index: 99999999;
     
     
 }
+
+.SN-Notes::-webkit-scrollbar {
+    display: none;
+  }
 
 
 
