@@ -171,13 +171,13 @@ function confirm(callback) {
 
     $('.SN-main-sidebar-controls-plus').addEventListener('click', () => {
         let contents = `
-        <h2>NOTE TITLE</h2>
+        <h2>new note</h2>
         <div class="popup-input">
-        <input type="text" id="note-title">
+          <input type="text" id="note-title" placeholder="note title">
         </div>
-        <a class="btn" id="noteCreation">Create Note</a>
+        <a class="new_note" id="noteCreation">Create Note</a>
         `;
-        
+
         build_popup(contents);
 
         $("#noteCreation").addEventListener('click', () => {
@@ -199,7 +199,7 @@ function confirm(callback) {
             let response_write = write_File(saveData);
             paint_sidebar(saveData);
             //end call to main process
-
+            $('.popup-container').remove();
         });
     });
 
@@ -293,7 +293,7 @@ function confirm(callback) {
         <option value="Java">Java</option>
         <option value="JavaScript">JavaScript</option>
         <option value="Python">Python</option>
-        </select> 
+        </select>
         `;
         let languageSelector = document.createElement('div');
         languageSelector.innerHTML = languageSelectorinner;

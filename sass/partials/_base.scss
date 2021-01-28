@@ -1,0 +1,42 @@
+body {
+    margin: 0px !important;
+    background-color: $gray-2;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+html, body { height:100%; }
+
+.SN-top-bar {
+    background-color: $gray-2;
+    width: 100%;
+    padding:10px 20px;
+}
+
+p, h2, a, .SN-Notes, .save, .delete, .code {
+    font-family: $main-font;
+}
+
+.divider { margin:0px !important; }
+
+.SN-main {
+    display: flex;
+    height: calc(100vh - 96px);
+    width: 100%;
+
+    .SN-main-sidebar{
+        flex: 3;
+        position: relative;
+    }
+}
+
+.btn {
+    padding: 10px 20px;
+    border-width: 1px;
+    border-color: $gray-1;
+    border-style: solid;
+    border-radius: 100px;
+    cursor:pointer;
+    margin-top: 20px;
+    text-align: center;
+}
