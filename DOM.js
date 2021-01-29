@@ -1,23 +1,19 @@
 let ipc = require('electron').ipcRenderer;
 
-function cl(log) {
-    return console.log(log);
-}
+function cl(log) { return console.log(log);}
 
 function $(elem) {
     return document.querySelector(elem);
 }
 
-
+  // Clear main pane
 function clear_main_pain() {
     $('.SN-main-content-note-title').innerHTML = "";
     $('.SN-main-content-note-title').style.display = "none";
     $('.SN-Notes').innerHTML = "";
 }
 
-
-
-
+  // Create Sidebar
 function init_paint() {
     document.querySelector('.SN-main-sidebar-content').innerHTML = "";
     let data = ipc.sendSync('init');
@@ -34,6 +30,7 @@ function init_paint() {
     });
 }
 
+  // Main Container and editor
 function paint_main(data, filename) {
     let note_title = data.title;
     let note_body = data.content;
@@ -60,47 +57,63 @@ function paint_main(data, filename) {
         let targetLang = sel.querySelector('#languages').dataset.lang;
         sel.querySelector('#languages').value = targetLang;
         cl(targetLang);
-
+        console.log("targettLang", targetLang)
 
         //init languages
 
-        if (targetLang == "C") {
-            frame.session.setMode("ace/mode/c_cpp");
-        }
-        else if (targetLang == "C#") {
-            frame.session.setMode("ace/mode/csharp");
-        }
-        else if (targetLang == "C++") {
-            frame.session.setMode("ace/mode/c_cpp");
-        }
-        else if (targetLang == "Java") {
-            frame.session.setMode("ace/mode/java");
-        }
-        else if (targetLang == "JavaScript") {
+        switch(targetLang) {
+          case 'C':
+              frame.session.setMode("ace/mode/c_cpp");
+            break;
+          case 'C#':
+              frame.session.setMode("ace/mode/csharp");
+            break;
+          case 'C++':
+              frame.session.setMode("ace/mode/c_cpp");
+            break;
+          case 'Java':
+              frame.session.setMode("ace/mode/java");
+            break;
+          case 'Python':
+            frame.session.setMode("ace/mode/python");
+          default:
             frame.session.setMode("ace/mode/javascript");
         }
-        else if (targetLang == "Python") {
-            frame.session.setMode("ace/mode/python");
-        }
+
+        // if (targetLang == "C") {
+        //     frame.session.setMode("ace/mode/c_cpp");
+        // }
+        // else if (targetLang == "C#") {
+        //     frame.session.setMode("ace/mode/csharp");
+        // }
+        // else if (targetLang == "C++") {
+        //     frame.session.setMode("ace/mode/c_cpp");
+        // }
+        // else if (targetLang == "Java") {
+        //     frame.session.setMode("ace/mode/java");
+        // }
+        // else if (targetLang == "JavaScript") {
+        //     frame.session.setMode("ace/mode/javascript");
+        // }
+        // else if (targetLang == "Python") {
+        //     frame.session.setMode("ace/mode/python");
+        // }
 
         //end languages
 
-
-
-
     });
-
 }
 
+  // New item
 function paint_sidebar(data) {
     let mUID = data.uid;
     let title = data.notetitle;
     let strippedContent = data.body.substring(0, 25) + "...";
     let inner = `
-    <div class="SN-main-sidebar-elem ${mUID}">
-                <div class="SN-main-sidebar-elem-title">${title}</div>
-                <div class="SN-main-sidebar-elem-content-preview">${strippedContent}</div>
-            </div>
+      <div class="SN-main-sidebar-elem ${mUID}">
+        <div class="SN-main-sidebar-elem-title">${title}</div>
+        <div class="SN-main-sidebar-elem-content-preview">${strippedContent}</div>
+      </div>
     `;
     let builDom = document.createElement('div');
     builDom.innerHTML = inner;
@@ -116,29 +129,29 @@ function paint_sidebar(data) {
     document.querySelector('.SN-main-sidebar-content').appendChild(builDom);
 }
 
+  // New note popup UI
 function build_popup(inner) {
     let wrapper = document.createElement('div');
     wrapper.innerHTML = `
         <div class="popup-container">
-        <div class="popup-close">X</div>
-        ${inner}
+          <div class="popup-close"><i class="fas fa-times"></i></div>
+          ${inner}
         </div>
-        `;
+      `;
 
     document.body.appendChild(wrapper);
-    $('.popup-close').addEventListener('click', () => {
-        $('.popup-container').remove();
-    });
-
+      $('.popup-close').addEventListener('click', () => {
+        $('.popup-container').remove(); // fadeOut() isn't a function?
+      });
 }
 
-
+  // Write note
 function write_File(data) {
     let response = ipc.sendSync('write-Note', data);
     return response;
 }
 
-
+  // Delete note
 function confirm(callback) {
     let contents = `
         <h2>Delete Note?</h2>
@@ -161,14 +174,12 @@ function confirm(callback) {
 }
 
 
-
-
-
 (function () {
     // test sending data to other process
 
     init_paint();
 
+// New note UI
     $('.SN-main-sidebar-controls-plus').addEventListener('click', () => {
         let contents = `
         <h2>new note</h2>
@@ -179,21 +190,21 @@ function confirm(callback) {
         `;
 
         build_popup(contents);
-
+      // new note function
         $("#noteCreation").addEventListener('click', () => {
-            let title = $('#note-title').value;
-            let content = '//write code or notes here! :)';
-            let date = new Date();
-            let now = date.getTime();
-            let stringNow = now.toString();
-            let uniqueID = title.replace(new RegExp(' ', 'g'), "-") + "-" + stringNow;
+            let title = $('#note-title').value,
+                content = '//write code or notes here! :)',
+                date = new Date(),
+                now = date.getTime(),
+                stringNow = now.toString(),
+                uniqueID = title.replace(new RegExp(' ', 'g'), "-") + "-" + stringNow;
 
 
             let saveData = {
-                uid: uniqueID,
-                notetitle: title,
-                body: content
-            };
+                  uid: uniqueID,
+                  notetitle: title,
+                  body: content
+              };
 
             //call to main process to write file
             let response_write = write_File(saveData);
@@ -204,7 +215,7 @@ function confirm(callback) {
     });
 
 
-
+// Save
     $('.save').addEventListener('click', (event) => {
         let editableDom = $('.SN-Notes');
         let editors = editableDom.querySelectorAll('.editor');
@@ -250,8 +261,7 @@ function confirm(callback) {
             cl('not');
         }
     });
-
-
+// Delete
     $('.delete').addEventListener('click', (event) => {
         let targetNote = $('.SN-note-tag').innerHTML;
         confirm(() => {
@@ -266,33 +276,32 @@ function confirm(callback) {
             }
         });
     });
-
-
-
+// Code
     $('.code').addEventListener('click', (event) => {
 
 
-        let editor = document.createElement('div');
-        let notePreTagStripped = $('.SN-note-tag').innerHTML;
-        let noteTagStripped = notePreTagStripped.replace('.json', '');
-        let date = new Date();
-        let now = date.getTime();
-        let stringNow = now.toString();
-        let calc_id = noteTagStripped + `-${stringNow}`;
+        let editor = document.createElement('div'),
+            notePreTagStripped = $('.SN-note-tag').innerHTML,
+            noteTagStripped = notePreTagStripped.replace('.json', '',
+            date = new Date(),
+            now = date.getTime(),
+            stringNow = now.toString(),
+            calc_id = noteTagStripped + `-${stringNow}`
+
         editor.id = calc_id;
         editor.className = "editor";
         editor.style.width = "100%";
         editor.style.height = "300px";
-        let myBreak = document.createElement('br');
-        let languageSelectorinner = `
+        let myBreak = document.createElement('br'),
+            languageSelectorinner = `
         <select name="languages" id="languages" data-lang="PT">
-        <option value="PT">Plain Text</option>
-        <option value="C">C</option>
-        <option value="C#">C#</option>
-        <option value="C++">C++</option>
-        <option value="Java">Java</option>
-        <option value="JavaScript">JavaScript</option>
-        <option value="Python">Python</option>
+          <option value="PT">Plain Text</option>
+          <option value="C">C</option>
+          <option value="C#">C#</option>
+          <option value="C++">C++</option>
+          <option value="Java">Java</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="Python">Python</option>
         </select>
         `;
         let languageSelector = document.createElement('div');
@@ -313,7 +322,7 @@ function confirm(callback) {
         selectors.addEventListener('change', (event) => {
             let selected = event.target.value;
             selectors.dataset.lang = selected;
-            cl(selected + " was appliied on " + editor.id);
+            cl(selected + " was applied on " + editor.id);
             if (selected == "C") {
                 editorFrame.session.setMode("ace/mode/c_cpp");
             }
@@ -336,23 +345,6 @@ function confirm(callback) {
         });
 
         //end event listeners for changes
-
-
-
-
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })();

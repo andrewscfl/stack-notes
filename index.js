@@ -9,7 +9,6 @@ function createWindow() {
       nodeIntegration: true
     }
   })
-
   win.loadFile('index.html')
 }
 
@@ -173,5 +172,3 @@ ipcMain.on('del-note', (event, args) => {
   });
 
 });
-
-
