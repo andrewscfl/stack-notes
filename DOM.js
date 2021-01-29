@@ -154,16 +154,16 @@ function write_File(data) {
   // Delete note
 function confirm(callback) {
     let contents = `
-        <h2>Delete Note?</h2>
-        <a class="btn" id="DelConf">Delete Note</a>
-        <a class="btn" id="CancelConf">Cancel Note</a>
+          <h2>Delete Note?</h2>
+          <a class="btn btn-delete" id="DelConf">Delete Note</a>
+          <a class="btn btn-cancel" id="CancelConf">Cancel</a>
         `;
 
     build_popup(contents);
 
-
     $('#DelConf').addEventListener('click', () => {
         callback();
+        $('.popup-container').remove();
     });
 
     $('#CancelConf').addEventListener('click', () => {
@@ -282,11 +282,11 @@ function confirm(callback) {
 
         let editor = document.createElement('div'),
             notePreTagStripped = $('.SN-note-tag').innerHTML,
-            noteTagStripped = notePreTagStripped.replace('.json', '',
+            noteTagStripped = notePreTagStripped.replace('.json', ''),
             date = new Date(),
             now = date.getTime(),
             stringNow = now.toString(),
-            calc_id = noteTagStripped + `-${stringNow}`
+            calc_id = `${noteTagStripped} -${stringNow}`
 
         editor.id = calc_id;
         editor.className = "editor";

@@ -27,14 +27,14 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     position: relative; }
 
 .btn {
-  padding: 10px 20px;
-  border-width: 1px;
-  border-color: #404040;
-  border-style: solid;
-  border-radius: 100px;
+  color: white;
   cursor: pointer;
-  margin-top: 20px;
-  text-align: center; }
+  width: 100px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  float: right;
+  margin: 10px 5px; }
 
 .SN-main-sidebar {
   margin: 10px;
@@ -201,6 +201,18 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     .popup-container .new_note:hover {
       background-color: #30a010;
       cursor: pointer; }
+  .popup-container .btn-delete {
+    background-color: #f92672;
+    border: 1px solid #f92672;
+    width: 85%; }
+    .popup-container .btn-delete:hover {
+      background-color: #e60657; }
+  .popup-container .btn-cancel {
+    background-color: transparent;
+    border: 1px solid #404040;
+    width: 85%; }
+    .popup-container .btn-cancel:hover {
+      background-color: #404040; }
 
 .popup-close {
   color: white;

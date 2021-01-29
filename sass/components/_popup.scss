@@ -61,6 +61,27 @@
         cursor: pointer;
       }
     }
+
+
+  .btn-delete {
+    background-color: $primary;
+    border: 1px solid $primary;
+    width: 85%;
+
+    &:hover {
+      background-color: darken($primary, 10%);
+    }
+  }
+
+  .btn-cancel {
+    background-color: transparent;
+    border: 1px solid $gray-1;
+    width: 85%;
+
+    &:hover {
+      background-color: $gray-1;
+    }
+  }
 }
 
 .popup-close {
