@@ -286,7 +286,7 @@ function confirm(callback) {
             date = new Date(),
             now = date.getTime(),
             stringNow = now.toString(),
-            calc_id = `${noteTagStripped} -${stringNow}`
+            calc_id = `${noteTagStripped}-${stringNow}`
 
         editor.id = calc_id;
         editor.className = "editor";
@@ -346,5 +346,19 @@ function confirm(callback) {
 
         //end event listeners for changes
     });
+
+
+    //search event
+
+    $('.search-button').addEventListener('click',()=>{
+        let query = $('#snSearch').value;
+        ipc.on('search-results', (events, args) => {
+            //FOR EACH FILE THAT CONTAINS A TERM THIS WILL FIRE WITH THE FILENAME AS ARGS
+            console.log(`this is the results: ${args}`);
+        });
+        ipc.send('search', query);
+    });
+
+    //end search event
 
 })();

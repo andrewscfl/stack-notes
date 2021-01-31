@@ -172,3 +172,42 @@ ipcMain.on('del-note', (event, args) => {
   });
 
 });
+
+
+
+ipcMain.on('search', (event, args) => {
+  let term = args;
+  console.log(`search term here ${args}`);
+  let files_that_contain = [];
+  fs.readFile('files/track.json', 'utf-8', (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      let parsedJSON = JSON.parse(data);
+
+      for (let x = 0; x < parsedJSON.length; x++) {
+        let file = parsedJSON[x];
+        let filename = file.fp;
+        fs.readFile(`files/${filename}`, 'utf-8', (err, data) => {
+          if (err) console.log(err);
+          else {
+            let each_parsed = JSON.parse(data);
+            console.log('parsed below');
+            console.log(each_parsed);
+            if (each_parsed.content.includes(args)) {
+              console.log("TRUE EVAL");
+              event.reply('search-results', filename);
+            }
+          }
+        });
+       
+      }
+    }
+  });
+
+
+
+
+
+});
