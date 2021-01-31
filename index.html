@@ -3,7 +3,7 @@
 
   <body>
       <link rel="stylesheet" href="dist/css/style.min.css">
-      <script src="https://kit.fontawesome.com/d39843528a.js" crossorigin="anonymous"></script> <!--FontAwesome --> 
+      <script src="https://kit.fontawesome.com/d39843528a.js" crossorigin="anonymous"></script> <!--FontAwesome -->
       <script src="ace/ace-builds-master/src/ace.js"></script>
       <script src="ace/ace-builds-master/src/theme-idle_fingers.js" type="text/javascript" charset="utf-8"></script>
       <script src="ace/ace-builds-master/src/ext-modelist.js"></script>
@@ -16,11 +16,15 @@
       <div class="SN-main">
 
           <div class="SN-main-sidebar ">
+              <div class="SN-search">
+                <input id="snSearch" type="search" placeholder="Find a note">
+                <i class="fas fa-search"></i>
+              </div>
               <div class="SN-main-sidebar-content"></div>
 
               <div class="SN-main-sidebar-controls">
                   <div class="SN-main-sidebar-controls-plus">
-                      <p><strong>+</strong></p>
+                      <i class="fas fa-plus"></i>
                   </div>
               </div>
           </div>

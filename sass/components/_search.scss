@@ -1,0 +1,27 @@
+.SN-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  margin: 5px;
+  background: $gray-2;
+  border-radius: 5px;
+
+  input {
+    width: 85%;
+    color: white;
+    background-color: transparent;
+    border-color: transparent;
+    // border-bottom-color: $gray-4;
+  }
+
+  i {
+    margin: 0 5px 0 15px;
+    color: white;
+
+    &:hover {
+      cursor: pointer;
+    } 
+  }
+}
