@@ -1,0 +1,30 @@
+.SN-main-sidebar {
+    margin:10px;
+    background-color: $gray-1;
+    border-radius: 5px;
+    min-width: 100px;
+    overflow-y: scroll;
+
+  .SN-main-sidebar-elem {
+      background-color: $gray-2;
+      margin: 5px;
+      border-radius: 5px;
+      padding: 7px;
+      color: white;
+      cursor: pointer;
+      z-index: 99999999;
+
+      .SN-main-sidebar-elem-title {
+          color: white;
+          font-family: $main-font;
+          font-weight: 900;
+          font-size:15px;
+      }
+
+      .SN-main-sidebar-elem-content-preview {
+          color: white;
+          font-family: $main-font;
+          font-weight: 400;
+      }
+  }
+}

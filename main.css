@@ -1,4 +1,4 @@
-body{
+/* body{
     margin: 0px !important;
     background-color: rgb(36,36,36);
     overflow-y: hidden;
@@ -14,7 +14,7 @@ html,body {
     width: 100%;
     padding:10px 20px;
 
-}
+} 
 p, h2, a, .SN-Notes, .save, .delete, .code{
     font-family: monospace;
 }
@@ -29,26 +29,25 @@ p, h2, a, .SN-Notes, .save, .delete, .code{
 
 .SN-main{
     width: 100%;
-    
-}
+} */
 
-.word-decorator-1{
+/* .word-decorator-1{
     color: #f92672;
 }
 
 .word-decorator-2{
     color: #57dada;
-}
+} */
 
-.SN-main-sidebar {
+/* .SN-main-sidebar {
     margin:10px;
     background-color: #404040;
     border-radius: 5px;
     min-width: 100px;
     overflow-y: scroll;
-}
+} */
 
-.SN-main-sidebar-elem{
+/* .SN-main-sidebar-elem{
 background-color: rgb(36,36,36);
 margin: 5px;
 border-radius: 5px;
@@ -57,42 +56,41 @@ color: white;
 cursor:pointer;
 z-index: 99999999;
 
-}
+} */
 
-.SN-main-sidebar-elem-title{
+/* .SN-main-sidebar-elem-title{
     color: white;
     font-family: monospace;
     font-weight: 900;
     font-size:15px;
-}
+} */
 
-.SN-main-sidebar-elem-content-preview{
+/* .SN-main-sidebar-elem-content-preview{
     color: white;
     font-family: monospace;
     font-weight: 400;
-}
+} */
 
-.SN-main{
+/* .SN-main {
     display: flex;
     height: calc(100vh - 96px);
-}
+} */
 
-.SN-main-sidebar{
+/* .SN-main-sidebar{
     flex: 3;
     position: relative;
-    
-}
+} */
 
-.SN-main-content-area{
+/* .SN-main-content-area{
     flex: 9;
     margin-top: 10px;
     margin-right: 10px;
     display: flex;
     flex-direction: column;
-    
-}
 
-.SN-main-content-area .SN-Notes{
+} */
+
+/* .SN-main-content-area .SN-Notes{
     background-color: #404040;
     box-sizing: border-box;
     color: white;
@@ -103,28 +101,28 @@ z-index: 99999999;
     height: calc(100vh - 96px);
     resize: none;
     overflow-y:scroll;
-    
-    
-    
-}
 
 
 
-.SN-main-content-area .SN-Notes:focus {
+} */
+
+
+
+/* .SN-main-content-area .SN-Notes:focus {
     outline: none !important;
-}
+} */
 
 
 
-.SN-main-sidebar-controls{
+/* .SN-main-sidebar-controls{
     position: absolute;
     bottom: 0px;
     width: 100%;
     display: flex;
     justify-content: space-around;
     color: white;
-    
-    
+
+
 }
 
 .SN-main-sidebar-controls-plus{
@@ -132,11 +130,11 @@ width: 100%;
 background-color: rgb(47,47,47);
 text-align:center;
 cursor: pointer;
-}
+} */
 
 
 
-.SN-main-content-note-title{
+/* .SN-main-content-note-title{
     font-size: 25px;
     color: white;
     font-family: monospace;
@@ -144,10 +142,10 @@ cursor: pointer;
     margin-bottom: 10px !important;
     margin-top: 0px;
     display: none;
-}
+} */
 
 
-.popup-container{
+/* .popup-container{
     position: fixed;
     top: 30vh;
     right:0;
@@ -156,13 +154,13 @@ cursor: pointer;
     max-width: 300px;
     padding: 30px;
     background-color: white;
-    display: flex; 
+    display: flex;
     flex-direction: column;
     text-align:center;
 
-}
+} */
 
-.btn{
+/* .btn {
     padding: 10px 20px;
     border-width: 1px;
     border-color:#404040;
@@ -171,28 +169,28 @@ cursor: pointer;
     cursor:pointer;
     margin-top: 20px;
     text-align: center;
-}
+} */
 
-#note-title{
+/* #note-title{
     width: 100%;
 }
 
-.popup-close{
+.popup-close {
     position:absolute;
     top: 5px;
     right:5px;
     font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
-}
-
+} */
+/*
 .SN-main-content-save{
     background-color: rgb(36,36,36);
     text-align:right;
-    
 
-}
 
-.SN-main-content-save .save{
+} */
+
+/* .SN-main-content-save .save{
     color: white;
     cursor:pointer;
     background-color: rgb(47,47,47);
@@ -234,25 +232,4 @@ cursor: pointer;
     text-align: center;
     border-radius: 0px 0px 5px 5px;
     float:right;
-}
-
-
-.editor{
-    width: 100%;
-    height: 300px;
-    overflow-y:scroll;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} */
