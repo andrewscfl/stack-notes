@@ -42,9 +42,17 @@ STILL NEEDED:
 
 - animations for popup modal and other application functions
 - side over/minimize of notes sidebar
-- confirmation for deleting
 - autosave
 - ongoing testing for code inserting to be free of bugs
 - loading splash screen
 - test formatting (creating headers and coloring text)
 - notes exporting, already saved in fs as .json file, need to be able to load and export
+
+CURRENTLY WORKING ON:
+
+- fix plain-text bug
+- on the io thread write an async search function that connects with the search bar
+- delete ide in notes
+- autosave
+
+
