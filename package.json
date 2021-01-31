@@ -1,7 +1,7 @@
 {
   "name": "stack-notes",
   "version": "1.0.0",
-  "description": "",
+  "description": "an Electron-based note taking app for CS students.",
   "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
