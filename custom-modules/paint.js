@@ -38,6 +38,11 @@ const paint_main_from_load = (data, filename) => {
     document.querySelector('.SN-main-content-note-title').innerHTML = note_title;
     document.querySelector('.SN-Notes').innerHTML = noteDOM.innerHTML;
 
+    let allSelectors = document.querySelectorAll('select');
+    allSelectors.forEach((each) => {
+        each.style.display = "none";
+    });
+
     let activeEditors = noteDOM.querySelectorAll('.editor');
     activeEditors.forEach((ed) => {
         let edID = ed.id;
@@ -46,31 +51,33 @@ const paint_main_from_load = (data, filename) => {
         frame.setTheme("ace/theme/idle_fingers");
         console.log('PRINTING NEXT');
         let sel = ed.nextElementSibling;
-
         let targetLang = sel.querySelector('#languages').dataset.lang;
-        sel.querySelector('#languages').value = targetLang;
-        console.log(targetLang);
-        console.log("targettLang", targetLang)
-
         //init languages
 
         switch (targetLang) {
             case 'C':
                 frame.session.setMode("ace/mode/c_cpp");
+                console.log('reached');
                 break;
             case 'C#':
                 frame.session.setMode("ace/mode/csharp");
+                console.log('reached');
                 break;
             case 'C++':
                 frame.session.setMode("ace/mode/c_cpp");
+                console.log('reached');
                 break;
             case 'Java':
                 frame.session.setMode("ace/mode/java");
+                console.log('reached');
                 break;
             case 'Python':
                 frame.session.setMode("ace/mode/python");
+                console.log('reached');
+                break;
             default:
                 frame.session.setMode("ace/mode/javascript");
+                sel.querySelector('#languages').value = "JavaScript";
         }
 
 
