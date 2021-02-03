@@ -1,3 +1,6 @@
+let paint = require('./paint'),
+    fs = require('fs')
+
 const write_File = (data) => {
     let response = ipc.sendSync('write-Note', data);
     return response;
@@ -99,12 +102,36 @@ const Create = () => {
 }
 
 const Search = () => {
-    let query = $('#snSearch').value;
+
+    let query = $('#snSearch').value,
+        resArr = [],
+        notes = document.getElementsByClassName('SN-main-sidebar-elem')
+
+        // First clear out notes from DOM:
+    $('.SN-main-sidebar-content').innerHTML = ''
+        // Get Results:
     ipc.on('search-results', (events, args) => {
         //FOR EACH FILE THAT CONTAINS A TERM THIS WILL FIRE WITH THE FILENAME AS ARGS
-        console.log(`this is the results: ${args}`);
+
+      console.log('result ->', args)
+      resArr.push(args)
+      if(args.includes('.json')) {
+            // Create object out of each filename:
+        let doc_id = args.replace('.json', ''),
+            document_data = ipc.sendSync('get-contents', args),
+            fileObj = {
+              uid: doc_id,
+              notetitle: document_data.title,
+              body: document_data.content
+        };
+          // paint to DOM:
+        paint.paint_sidebar(fileObj);
+      }
+        console.log('resArr', resArr)
     });
     ipc.send('search', query);
+
+
 }
 
 module.exports = {
