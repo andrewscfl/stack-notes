@@ -1,5 +1,7 @@
 // this module is for "paiting" things to the DOM
 
+const { compile_code } = require("./compile");
+
 
 const write_log = () => {
     console.log('worked buddy');
@@ -159,6 +161,7 @@ const paint_new_code_block = () => {
     editor.style.height = "300px";
     let myBreak = document.createElement('br'),
         languageSelectorinner = `
+    <div style="display: flex; justify-content: space-between;">
     <select name="languages" id="languages" data-lang="PT">
       <option value="PT">Plain Text</option>
       <option value="C">C</option>
@@ -168,6 +171,13 @@ const paint_new_code_block = () => {
       <option value="JavaScript">JavaScript</option>
       <option value="Python">Python</option>
     </select>
+    <div class="compile-container">
+    <div class="compiler-lang" style="display:none;"></div>
+    <div class="target-ace" style="display:none;">${calc_id}</div>
+    <button id="compile" contenteditable="false">Run Code</button>
+    </div>
+    </div>
+    <div class="compiler-output" contenteditable="false"></div>
     `;
     let languageSelector = document.createElement('div');
     languageSelector.innerHTML = languageSelectorinner;
@@ -190,24 +200,43 @@ const paint_new_code_block = () => {
         cl(selected + " was applied on " + editor.id);
         if (selected == "C") {
             editorFrame.session.setMode("ace/mode/c_cpp");
+            languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML = "c";
         }
         else if (selected == "C#") {
             editorFrame.session.setMode("ace/mode/csharp");
+            languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML = "csharp";
         }
         else if (selected == "C++") {
             editorFrame.session.setMode("ace/mode/c_cpp");
+            languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML = "cpp";
         }
         else if (selected == "Java") {
             editorFrame.session.setMode("ace/mode/java");
+            languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML = "java";
         }
         else if (selected == "JavaScript") {
             editorFrame.session.setMode("ace/mode/javascript");
+            languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML = "js";
         }
         else if (selected == "Python") {
             editorFrame.session.setMode("ace/mode/python");
+            languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML = "python3";
         }
 
     });
+
+    //listen for code compile button press
+
+    $('#compile').addEventListener('click',()=>{
+        let lang = languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML;
+        let code = editorFrame.getValue();
+        compile_code(lang,code);
+    });
+
+
+
+
+    //end listen for code compile button press
 }
 
 
