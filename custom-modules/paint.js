@@ -11,7 +11,6 @@ const clear_main_pain = () => {
     $('.SN-Notes').innerHTML = "";
 }
 
-
 const init_paint = () => {
     document.querySelector('.SN-main-sidebar-content').innerHTML = "";
     let data = ipc.sendSync('init');
@@ -222,4 +221,3 @@ module.exports = {
     paint_confirm,
     paint_new_code_block
 };
-

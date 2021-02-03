@@ -176,9 +176,10 @@ ipcMain.on('del-note', (event, args) => {
 
 
 ipcMain.on('search', (event, args) => {
-  let term = args;
+  let term = args,
+      resArr = []
   console.log(`search term here ${args}`);
-  let files_that_contain = [];
+
   fs.readFile('files/track.json', 'utf-8', (err, data) => {
     if (err) {
       console.log(err);
@@ -189,6 +190,7 @@ ipcMain.on('search', (event, args) => {
       for (let x = 0; x < parsedJSON.length; x++) {
         let file = parsedJSON[x];
         let filename = file.fp;
+
         fs.readFile(`files/${filename}`, 'utf-8', (err, data) => {
           if (err) console.log(err);
           else {

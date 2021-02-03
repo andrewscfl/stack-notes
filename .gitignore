@@ -1,4 +1,6 @@
 **/node_modules
+**/files
+**/files
 **/.DS_Store
 .DS_Store
 **/js/dom/.DS_Store

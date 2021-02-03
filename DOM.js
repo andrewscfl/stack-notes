@@ -32,5 +32,8 @@ function $(elem) {
     $('.search-button').addEventListener('click', () => {
       io.Search();
     });
+    // $('#snSearch').addEventListener('keypress', () => {
+    //   io.Search();
+    // })
     //end search event
 })();
