@@ -3,3 +3,25 @@
     height: 300px;
     overflow-y:scroll;
 }
+
+#languages,
+.compile-container {
+  padding: 5px;
+  background: $gray-2;
+  color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-color: transparent;
+  box-shadow: $shadow;
+
+  &:hover {cursor: pointer;}
+
+  #compile {
+    background: transparent;
+    border-color: transparent;
+    color: white;
+
+
+    &:hover {cursor: pointer;}
+  }
+}

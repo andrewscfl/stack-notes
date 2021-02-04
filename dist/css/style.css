@@ -49,7 +49,8 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     padding: 7px;
     color: white;
     cursor: pointer;
-    z-index: 99999999; }
+    z-index: 99999999;
+    box-shadow: 0 2px 16px 0 #222223ad; }
     .SN-main-sidebar .SN-main-sidebar-elem .SN-main-sidebar-elem-title {
       color: white;
       font-family: monospace;
@@ -82,23 +83,16 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     border-color: black;
     width: 100%;
     border-radius: 5px 5px 0px 5px;
-    height: calc(100vh - 96px);
+    height: 74vh;
     resize: none;
     overflow-y: scroll; }
     .SN-main-content-area .SN-Notes:focus {
       outline: none !important; }
 
-.SN-main-sidebar-controls {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  color: white; }
-
 .SN-main-content-save {
   background-color: #242424;
-  text-align: right; }
+  text-align: right;
+  display: none; }
   .SN-main-content-save .save,
   .SN-main-content-save .delete,
   .SN-main-content-save .code {
@@ -109,7 +103,8 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     text-align: center;
     border-radius: 5px;
     float: right;
-    margin: 10px 5px; }
+    margin: 10px 5px;
+    box-shadow: 0 2px 16px 0 #222223ad; }
   .SN-main-content-save .save {
     background-color: #2f2f2f; }
     .SN-main-content-save .save:hover {
@@ -142,16 +137,24 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
   background: white;
   cursor: pointer; }
 
-.SN-main-sidebar-controls-plus {
+.SN-main-sidebar-controls {
+  position: absolute;
+  bottom: 0px;
   width: 100%;
-  background-color: #3ECF14;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  margin: 5px;
-  padding: 10px; }
-  .SN-main-sidebar-controls-plus:hover {
-    background: #37b812; }
+  display: flex;
+  justify-content: space-around;
+  color: white; }
+  .SN-main-sidebar-controls .SN-main-sidebar-controls-plus {
+    width: 100%;
+    background-color: #3ECF14;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 16px 0 #222223ad; }
+    .SN-main-sidebar-controls .SN-main-sidebar-controls-plus:hover {
+      background: #37b812; }
 
 .popup-container {
   position: fixed;
@@ -227,6 +230,27 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
   width: 100%;
   height: 300px;
   overflow-y: scroll; }
+
+#languages,
+.compile-container {
+  padding: 5px;
+  background: #242424;
+  color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-color: transparent;
+  box-shadow: 0 2px 16px 0 #222223ad; }
+  #languages:hover,
+  .compile-container:hover {
+    cursor: pointer; }
+  #languages #compile,
+  .compile-container #compile {
+    background: transparent;
+    border-color: transparent;
+    color: white; }
+    #languages #compile:hover,
+    .compile-container #compile:hover {
+      cursor: pointer; }
 
 .SN-search {
   display: flex;

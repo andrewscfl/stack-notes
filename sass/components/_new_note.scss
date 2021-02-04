@@ -1,13 +1,23 @@
-.SN-main-sidebar-controls-plus {
-  width: 100%;
-  background-color: $green-1;
-  text-align:center;
-  cursor: pointer;
-  border-radius: 5px;
-  margin: 5px;
-  padding: 10px;
+.SN-main-sidebar-controls {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    color: white;
 
-  &:hover {
-    background: darken($green-1, 5%)
-  }
+    .SN-main-sidebar-controls-plus {
+      width: 100%;
+      background-color: $green-1;
+      text-align:center;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 5px;
+      padding: 10px;
+      box-shadow: $shadow;
+
+      &:hover {
+        background: darken($green-1, 5%)
+      }
+    }
 }

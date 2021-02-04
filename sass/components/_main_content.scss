@@ -24,7 +24,8 @@
         border-color: black;
         width: 100%;
         border-radius: 5px 5px 0px 5px;
-        height: calc(100vh - 96px);
+        // height: calc(100vh - 96px) !important;
+        height: 74vh;
         resize: none;
         overflow-y: scroll;
 

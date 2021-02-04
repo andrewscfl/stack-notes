@@ -1,15 +1,7 @@
-.SN-main-sidebar-controls {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    color: white;
-}
-
 .SN-main-content-save {
     background-color: $gray-2;
     text-align: right;
+    display: none;
 
     .save,
     .delete,
@@ -22,6 +14,7 @@
         border-radius: 5px;
         float: right;
         margin: 10px 5px;
+        box-shadow: $shadow;
     }
 
     .save {

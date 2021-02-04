@@ -99,7 +99,7 @@ const paint_sidebar = (data) => {
     builDom.querySelector('.SN-main-sidebar-elem').addEventListener('click', (e) => {
         let response_get_file = ipc.sendSync('get-contents', targetFile);
         paint_main_from_load(response_get_file, targetFile);
-
+        document.querySelector('.SN-main-content-save').style.display = 'block'
     });
 
 
