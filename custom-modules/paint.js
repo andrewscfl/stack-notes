@@ -157,7 +157,6 @@ const paint_new_code_block = () => {
     editor.className = "editor";
     editor.style.width = "100%";
     editor.style.height = "300px";
-
     let myBreak = document.createElement('br'),
         languageSelectorinner = `
     <select name="languages" id="languages" data-lang="PT">
@@ -173,21 +172,17 @@ const paint_new_code_block = () => {
     let languageSelector = document.createElement('div');
     languageSelector.innerHTML = languageSelectorinner;
 
-    let deleteEditor = document.createElement('div'),
-        deleteEditorBtn = `<button class="delete-editor" contenteditable='false'>Delete Editor</button>`
-    deleteEditor.innerHTML = deleteEditorBtn
-
-
     $('.SN-Notes').appendChild(myBreak);
     $('.SN-Notes').appendChild(editor);
     $('.SN-Notes').appendChild(languageSelector);
-    $('.SN-Notes').appendChild(deleteEditor);
     $('.SN-Notes').appendChild(myBreak);
     let editorFrame = ace.edit(calc_id);
     editorFrame.setTheme("ace/theme/idle_fingers");
 
 
     //add event listeners for changes
+
+
     let selectors = languageSelector.querySelector('#languages');
     selectors.addEventListener('change', (event) => {
         let selected = event.target.value;
@@ -213,12 +208,6 @@ const paint_new_code_block = () => {
         }
 
     });
-
-    //event listeners for delete
-    $('.delete-editor').addEventListener('click', (event) => {
-      // editorFrame.style.display = 'none';
-      alert('deleting...')
-    })
 }
 
 
