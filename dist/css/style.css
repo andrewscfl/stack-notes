@@ -83,7 +83,7 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     border-color: black;
     width: 100%;
     border-radius: 5px 5px 0px 5px;
-    height: 74vh;
+    height: 72vh;
     resize: none;
     overflow-y: scroll; }
     .SN-main-content-area .SN-Notes:focus {
@@ -231,26 +231,38 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
   height: 300px;
   overflow-y: scroll; }
 
-#languages,
-.compile-container {
-  padding: 5px;
+#languages {
   background: #242424;
-  color: white;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  box-shadow: 0 2px 16px 0 #222223ad;
+  padding: 5px;
+  color: white;
+  border-color: transparent; }
+
+.compile-container {
+  width: 82%;
+  display: flex;
+  justify-content: flex-start; }
+
+.compile-container #compile {
+  background: transparent; }
+
+.compile-container .delete-editor {
+  background: #f92672; }
+
+.compile-container #compile,
+.compile-container .delete-editor {
   border-color: transparent;
-  box-shadow: 0 2px 16px 0 #222223ad; }
-  #languages:hover,
-  .compile-container:hover {
+  color: white;
+  box-shadow: 0 2px 16px 0 #222223ad;
+  margin-right: 5px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px; }
+  .compile-container #compile:hover,
+  .compile-container .delete-editor:hover {
     cursor: pointer; }
-  #languages #compile,
-  .compile-container #compile {
-    background: transparent;
-    border-color: transparent;
-    color: white; }
-    #languages #compile:hover,
-    .compile-container #compile:hover {
-      cursor: pointer; }
 
 .SN-search {
   display: flex;

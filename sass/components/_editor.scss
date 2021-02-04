@@ -4,24 +4,35 @@
     overflow-y:scroll;
 }
 
-#languages,
-.compile-container {
-  padding: 5px;
+#languages {
   background: $gray-2;
-  color: white;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  border-color: transparent;
   box-shadow: $shadow;
+  padding: 5px;
+  color: white;
+  border-color: transparent;
+}
+.compile-container {
+  width: 82%;
+  display: flex;
+  justify-content: flex-start;
+}
 
-  &:hover {cursor: pointer;}
+.compile-container {
 
-  #compile {
-    background: transparent;
+  #compile { background: transparent; }
+  .delete-editor { background: $primary; }
+  #compile,
+  .delete-editor {
     border-color: transparent;
     color: white;
+    box-shadow: $shadow;
+    margin-right: 5px;
+    padding: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 
-
-    &:hover {cursor: pointer;}
+    &:hover { cursor: pointer; }
   }
 }
