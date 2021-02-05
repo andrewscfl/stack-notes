@@ -87,6 +87,17 @@ const paint_main_from_load = (data, filename) => {
     });
 }
 
+const delete_ide = () => {
+  document.querySelectorAll('.delete-editor').forEach((button) => {
+    button.addEventListener('click', () => {
+      let rdm_id = button.id.split('-^-')[1]
+          console.log("We're gonna delete you motherfucker!!", rdm_id)
+      document.getElementById(`ide-bar-^-${rdm_id}`).remove()
+      document.getElementById(`${rdm_id}`).remove
+    })
+  })
+}
+
 const paint_sidebar = (data) => {
     let mUID = data.uid;
     let title = data.notetitle;
@@ -105,18 +116,7 @@ const paint_sidebar = (data) => {
         let response_get_file = ipc.sendSync('get-contents', targetFile);
         paint_main_from_load(response_get_file, targetFile);
         document.querySelector('.SN-main-content-save').style.display = 'block' // Shows user action buttons Code Delete Save
-
-            // Deleting notes:
-        document.querySelectorAll('.delete-editor').forEach((button) => {
-          button.addEventListener('click', () => {
-
-            let rdm_id = button.id.split('-^-')[1]
-                console.log("We're gonna delete you motherfucker!!", rdm_id)
-            document.getElementById(`${rdm_id}`).remove()
-            document.getElementById(`ide-bar-^-${rdm_id}`).remove()
-          })
-        })
-
+        delete_ide()
     });
 
 

@@ -136,17 +136,15 @@ const Search = () => {
 }
 
 const DeleteEditor = () => {
-  let target,
-      btnArr = document.querySelectorAll('.delete-editor')
+  document.querySelectorAll('.delete-editor').forEach((button) => {
+    button.addEventListener('click', () => {
 
-      console.log("Ooh fuck it's gone!")
-     for(let i = 0; i < btnArr.length; i++) {
-       console.log(btnArr[i].id)
-      let rdm_id = btnArr[i].id.split('-^-')
-
-     }
-
-
+      let rdm_id = button.id.split('-^-')[1]
+          console.log("We're gonna delete you motherfucker!!", rdm_id)
+      document.getElementById(`${rdm_id}`).remove
+      document.getElementById(`ide-bar-^-${rdm_id}`).remove()
+    })
+  })
 }
 
 module.exports = {
