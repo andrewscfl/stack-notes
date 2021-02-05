@@ -1,5 +1,6 @@
 let paint = require('./paint'),
     fs = require('fs')
+const { v4: uuidv4 } = require('uuid');
 
 const write_File = (data) => {
     let response = ipc.sendSync('write-Note', data);
@@ -134,10 +135,25 @@ const Search = () => {
 
 }
 
+const DeleteEditor = () => {
+  let target,
+      btnArr = document.querySelectorAll('.delete-editor')
+
+      console.log("Ooh fuck it's gone!")
+     for(let i = 0; i < btnArr.length; i++) {
+       console.log(btnArr[i].id)
+      let rdm_id = btnArr[i].id.split('-^-')
+
+     }
+
+
+}
+
 module.exports = {
     write_File,
     Save,
     Delete,
     Create,
-    Search
+    Search,
+    DeleteEditor
 };

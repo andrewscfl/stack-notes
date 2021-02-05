@@ -11,7 +11,7 @@ function $(elem) {
 }
 
 (function () {
-  
+
 
     paint.init_paint();
     // New note UI
@@ -39,4 +39,7 @@ function $(elem) {
     //   io.Search();
     // })
     //end search event
+    document.querySelectorAll('.delete-editor').addEventListener('click', () => {
+      io.DeleteEditor();
+    })
 })();

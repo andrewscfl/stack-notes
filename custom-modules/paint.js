@@ -1,6 +1,8 @@
 // this module is for "paiting" things to the DOM
 
-const { compile_code } = require("./compile");
+const { compile_code } = require("./compile"),
+      { v4: uuidv4 } = require('uuid')
+
 
 
 const write_log = () => {
@@ -98,16 +100,28 @@ const paint_sidebar = (data) => {
     let builDom = document.createElement('div');
     builDom.innerHTML = inner;
     let targetFile = builDom.querySelector('.SN-main-sidebar-elem').classList[1].concat('.json');
+      // When user selects a note:
     builDom.querySelector('.SN-main-sidebar-elem').addEventListener('click', (e) => {
         let response_get_file = ipc.sendSync('get-contents', targetFile);
         paint_main_from_load(response_get_file, targetFile);
-        document.querySelector('.SN-main-content-save').style.display = 'block'
+        document.querySelector('.SN-main-content-save').style.display = 'block' // Shows user action buttons Code Delete Save
+
+            // Deleting notes:
+        document.querySelectorAll('.delete-editor').forEach((button) => {
+          button.addEventListener('click', () => {
+
+            let rdm_id = button.id.split('-^-')[1]
+                console.log("We're gonna delete you motherfucker!!", rdm_id)
+            document.getElementById(`${rdm_id}`).remove()
+            document.getElementById(`ide-bar-^-${rdm_id}`).remove()
+          })
+        })
+
     });
 
 
     document.querySelector('.SN-main-sidebar-content').appendChild(builDom);
 }
-
 
 const paint_popup = (inner) => {
     let wrapper = document.createElement('div');
@@ -123,7 +137,6 @@ const paint_popup = (inner) => {
         $('.popup-container').remove(); // fadeOut() isn't a function?
     });
 }
-
 
 const paint_confirm = (callback) => {
     let contents = `
@@ -161,7 +174,7 @@ const paint_new_code_block = () => {
     editor.style.height = "300px";
     let myBreak = document.createElement('br'),
         languageSelectorinner = `
-    <div id="ide-bar-${calc_id}" style="display: flex; justify-content: space-between;">
+    <div id="ide-bar-^-${calc_id}" style="display: flex; justify-content: space-between;">
       <select name="languages" id="languages" data-lang="PT">
         <option value="PT">Plain Text</option>
         <option value="C">C</option>
@@ -175,7 +188,7 @@ const paint_new_code_block = () => {
         <div class="compiler-lang" style="display:none;"></div>
         <div class="target-ace" style="display:none;">${calc_id}</div>
         <button id="compile" contenteditable="false">Run Code</button>
-        <button class="delete-editor" contenteditable="false"><span><strong>Delete Editor</strong></span></button>
+        <button id="delete-^-${calc_id}" class="delete-editor" contenteditable="false"><span><strong>Delete Editor</strong></span></button>
       </div>
     </div>
     <div class="compiler-output" contenteditable="false"></div>
@@ -237,6 +250,8 @@ const paint_new_code_block = () => {
 
       $(`#${calc_id}`).remove()
       $(`#ide-bar-${calc_id}`).remove()
+
+
     });
 }
 
