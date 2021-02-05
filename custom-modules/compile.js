@@ -17,13 +17,6 @@ const compile_code = (lang, code) => {
 
 }
 
-
-
-
-
-
-
-
 module.exports = {
     compile_code
 };

@@ -12,34 +12,27 @@ function $(elem) {
 
 (function () {
 
-
     paint.init_paint();
-    // New note UI
+  // New note UI
     $('.SN-main-sidebar-controls-plus').addEventListener('click', () => {
         io.Create();
     });
-    // Save
+  // Save
     $('.save').addEventListener('click', (event) => {
       io.Save();
     });
-    // Delete
+  // Delete
     $('.delete').addEventListener('click', (event) => {
        io.Delete();
     });
-    // Code
+  // Code
     $('.code').addEventListener('click', (event) => {
         paint.paint_new_code_block();
         //end event listeners for changes
     });
-    //search event
+  //search event
     $('.search-button').addEventListener('click', () => {
       io.Search();
     });
-    // $('#snSearch').addEventListener('keypress', () => {
-    //   io.Search();
-    // })
-    //end search event
-    document.querySelectorAll('.delete-editor').addEventListener('click', () => {
-      io.DeleteEditor();
-    })
+
 })();
