@@ -7,11 +7,6 @@ body {
 html, body {
   height: 100%; }
 
-.SN-top-bar {
-  background-color: #242424;
-  width: 100%;
-  padding: 10px 20px; }
-
 p, h2, a, .SN-Notes, .save, .delete, .code {
   font-family: monospace; }
 
@@ -286,18 +281,29 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     .SN-search i:hover {
       cursor: pointer; }
 
-.SN-top-bar h1,
-.SN-top-bar p {
-  color: white; }
-
-.word-decorator-1,
-.word-decorator-2 {
-  font-family: monospace; }
-
-.word-decorator-1 {
-  color: #f92672; }
-
-.word-decorator-2 {
-  color: #57dada; }
+.SN-top-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  background-color: #242424;
+  width: 100%;
+  padding: 10px 20px; }
+  .SN-top-bar h1,
+  .SN-top-bar p {
+    color: white; }
+  .SN-top-bar .word-decorator-1,
+  .SN-top-bar .word-decorator-2 {
+    font-family: monospace; }
+  .SN-top-bar .word-decorator-1 {
+    color: #f92672; }
+  .SN-top-bar .word-decorator-2 {
+    color: #57dada; }
+  .SN-top-bar .autosave {
+    margin-left: 27rem;
+    font-family: monospace;
+    visibility: hidden;
+    color: #F1F1F1; }
+    .SN-top-bar .autosave i {
+      color: #3ECF14; }
 
 /*# sourceMappingURL=style.css.map */

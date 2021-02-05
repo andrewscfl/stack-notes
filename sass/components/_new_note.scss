@@ -8,7 +8,7 @@
 
     .SN-main-sidebar-controls-plus {
       width: 100%;
-      background-color: $green-1;
+      background-color: $green;
       text-align:center;
       cursor: pointer;
       border-radius: 5px;
@@ -17,7 +17,7 @@
       box-shadow: $shadow;
 
       &:hover {
-        background: darken($green-1, 5%)
+        background: darken($green, 5%)
       }
     }
 }

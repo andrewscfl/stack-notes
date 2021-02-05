@@ -34,5 +34,6 @@ function $(elem) {
     $('.search-button').addEventListener('click', () => {
       io.Search();
     });
-
+  //Autosave
+    io.Autosave();
 })();

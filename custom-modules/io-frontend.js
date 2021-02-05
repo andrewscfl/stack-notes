@@ -140,11 +140,43 @@ const DeleteEditor = () => {
     button.addEventListener('click', () => {
 
       let rdm_id = button.id.split('-^-')[1]
-          console.log("We're gonna delete you motherfucker!!", rdm_id)
+          console.log("Deleting:", rdm_id)
       document.getElementById(`${rdm_id}`).remove
       document.getElementById(`ide-bar-^-${rdm_id}`).remove()
     })
   })
+}
+
+const Autosave = () => {
+  let timeout_milliseconds = 30000,
+      timeout_id;
+
+  const startTimer = () => {
+        // window.setTimeout returns an Id that can be used to start and stop a timer
+          timeout_id = window.setTimeout(() => {
+            console.log('Autosaving...')
+            
+            setTimeout(() => { document.querySelector('.autosave').style.visibility = 'visible' //console.log('save icon fade in')
+              setTimeout(() => { document.querySelector('.autosave').style.visibility = 'hidden'
+            }, 1000) // console.log('save icon fade out') }, 2000) // Save icon fade outz
+          }, 1000) // Save icon fade in
+
+            Save();
+          }, timeout_milliseconds)
+        },
+        resetTimer = () => {
+            window.clearTimeout(timeout_id)
+            startTimer();
+        },
+        setupTimers = () => {
+          document.addEventListener("mousemove", resetTimer, false)
+          document.addEventListener("mousedown", resetTimer, false)
+          document.addEventListener("keypress", resetTimer, false)
+          document.addEventListener("touchmove", resetTimer, false)
+
+          startTimer()
+        }
+    setupTimers()
 }
 
 module.exports = {
@@ -153,5 +185,6 @@ module.exports = {
     Delete,
     Create,
     Search,
-    DeleteEditor
+    DeleteEditor,
+    Autosave
 };
