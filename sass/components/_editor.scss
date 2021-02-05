@@ -22,7 +22,12 @@
 .compile-container {
 
   #compile { background: transparent; }
-  .delete-editor { background: $primary; }
+  .delete-editor {
+    background: $primary; 
+    &:hover {
+      background: darken($primary, 15%);
+    }
+  }
   #compile,
   .delete-editor {
     border-color: transparent;

@@ -93,7 +93,7 @@ const delete_ide = () => {
       let rdm_id = button.id.split('-^-')[1]
           console.log("We're gonna delete you motherfucker!!", rdm_id)
       document.getElementById(`ide-bar-^-${rdm_id}`).remove()
-      document.getElementById(`${rdm_id}`).remove
+      document.getElementById(`${rdm_id}`).remove()
     })
   })
 }
@@ -248,8 +248,8 @@ const paint_new_code_block = () => {
     $('.delete-editor').addEventListener('click', ()=> {
       console.log('DELETING!', calc_id)
 
-      $(`#${calc_id}`).remove()
-      $(`#ide-bar-${calc_id}`).remove()
+      document.getElementById(`${calc_id}`).remove()
+      document.getElementById(`ide-bar-^-${calc_id}`).remove()
 
 
     });

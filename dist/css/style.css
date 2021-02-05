@@ -250,6 +250,8 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
 
 .compile-container .delete-editor {
   background: #f92672; }
+  .compile-container .delete-editor:hover {
+    background: #cd064d; }
 
 .compile-container #compile,
 .compile-container .delete-editor {
