@@ -36,4 +36,8 @@ function $(elem) {
     });
   //Autosave
     io.Autosave();
+  //Minimize/Maximize
+    $('#minimize').addEventListener('click', () => {
+      io.MiniMaxi();
+    })
 })();

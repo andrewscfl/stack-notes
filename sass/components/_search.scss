@@ -3,10 +3,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 5px;
+  padding: 5px 0px 5px 0px;
   margin: 5px;
   background: $gray-2;
   border-radius: 5px;
+  color: white;
 
   input {
     width: 85%;
@@ -16,12 +17,12 @@
     // border-bottom-color: $gray-4;
   }
 
-  i {
-    margin: 0 5px 0 15px;
+  svg {
+    margin: 0 10px 0 15px;
     color: white;
 
     &:hover {
       cursor: pointer;
-    } 
+    }
   }
 }

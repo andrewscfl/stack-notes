@@ -3,7 +3,7 @@ const fs = require('fs');
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
+    width: 870,
     height: 600,
     webPreferences: {
       nodeIntegration: true

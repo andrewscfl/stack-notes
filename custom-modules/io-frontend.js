@@ -1,6 +1,5 @@
 let paint = require('./paint'),
     fs = require('fs')
-const { v4: uuidv4 } = require('uuid');
 
 const write_File = (data) => {
     let response = ipc.sendSync('write-Note', data);
@@ -155,7 +154,7 @@ const Autosave = () => {
         // window.setTimeout returns an Id that can be used to start and stop a timer
           timeout_id = window.setTimeout(() => {
             console.log('Autosaving...')
-            
+
             setTimeout(() => { document.querySelector('.autosave').style.visibility = 'visible' //console.log('save icon fade in')
               setTimeout(() => { document.querySelector('.autosave').style.visibility = 'hidden'
             }, 1000) // console.log('save icon fade out') }, 2000) // Save icon fade outz
@@ -179,6 +178,72 @@ const Autosave = () => {
     setupTimers()
 }
 
+const MiniMaxi = () => {
+    //animate__animated
+    let icon = document.getElementById('mini_maxi'),
+        sidebar = document.querySelector('.SN-main-sidebar'),
+        sidebar_controls = document.querySelector('.SN-main-sidebar-controls'),
+        new_note_btn = document.querySelector('.SN-main-sidebar-controls-plus'),
+        note_elements = document.getElementsByClassName('SN-main-sidebar-elem'),
+        search = document.querySelector('.search-button'),
+        search_mini = false
+
+    const minimize = () => {
+                  // Icon
+              icon.classList.remove('rotate-left')
+              icon.classList.add('rotate-right')
+              icon.classList.add('animate__animated', 'animate__fadeOut')
+
+                  // Sidebar
+              sidebar.classList.add('mini-sidebar')
+
+                  // Sidebar controls
+              sidebar_controls.classList.add('mini-sidebar_controls')
+
+                  // New note button
+              new_note_btn.classList.add('mini-new_note')
+
+                  // notes
+              for(let i = 0; i < note_elements.length; i++) {
+                note_elements[i].classList.add('mini-notes')
+              }
+          },
+          maximize = () => {
+                    // Icon
+                icon.classList.remove('rotate-right')
+                icon.classList.add('rotate-left')
+                icon.classList.remove('animate__animated')
+                icon.classList.remove('animate__fadeOut')
+
+                    // Sidebar
+                sidebar.classList.remove('mini-sidebar')
+
+                    // Sidebar controls
+                sidebar_controls.classList.remove('mini-sidebar_controls')
+
+                    // New note button
+                new_note_btn.classList.remove('mini-new_note')
+
+                    // notes
+                for(let i = 0; i < note_elements.length; i++) {
+                  note_elements[i].classList.remove('mini-notes')
+                }
+
+          }
+
+    if(!icon.classList.contains('rotate-right') || search_mini == true) {
+        // Minimizing
+      minimize()
+    } else {
+        // Maximizing
+      maximize()
+    }
+    // search.addEventListener('click', () => {
+    //   search_mini = true
+    //   maximize();
+    // })
+}
+
 module.exports = {
     write_File,
     Save,
@@ -186,5 +251,6 @@ module.exports = {
     Create,
     Search,
     DeleteEditor,
-    Autosave
+    Autosave,
+    MiniMaxi
 };

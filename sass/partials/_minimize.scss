@@ -1,0 +1,20 @@
+// Mimizing animation
+  // Sidebar
+.mini-sidebar {
+  flex: 0 !important;
+  transition-duration: 0.2s;
+  min-width: 60px !important;
+}
+  // Sidebar controls
+.mini-sidebar_controls {
+  width: 2.8rem !important;
+}
+  // New note button
+.mini-new_note {
+  width: 55% !important;
+}
+  // Sidebar elem notes
+.mini-notes {
+  overflow: hidden !important;
+}
+  
