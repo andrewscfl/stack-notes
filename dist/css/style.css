@@ -10,6 +10,12 @@ html, body {
 p, h2, a, .SN-Notes, .save, .delete, .code {
   font-family: monospace; }
 
+button:active, button:focus, button:focus-within,
+input:active,
+input:focus,
+input:focus-within {
+  outline: 1px solid transparent !important; }
+
 .divider {
   margin: 0px !important; }
 
@@ -7805,7 +7811,8 @@ readers do not read off random characters that represent icons */
   flex-direction: column;
   text-align: center;
   z-index: 999999999;
-  text-align: left; }
+  text-align: left;
+  border-radius: 5px; }
   .popup-container .popup-input {
     width: 100%; }
     .popup-container .popup-input input {

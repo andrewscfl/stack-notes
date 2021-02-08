@@ -11,6 +11,15 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
     font-family: $main-font;
 }
 
+button,
+input {
+  &:active,
+  &:focus,
+  &:focus-within {
+    outline: 1px solid transparent !important;
+  }
+}
+
 .divider { margin:0px !important; }
 
 .SN-main {
