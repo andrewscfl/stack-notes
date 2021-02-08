@@ -11,10 +11,12 @@
 }
   // New note button
 .mini-new_note {
-  width: 55% !important;
+  width: 26px !important;
+  position: fixed;
+  bottom: 1px !important;
+  
 }
   // Sidebar elem notes
 .mini-notes {
   overflow: hidden !important;
 }
-  

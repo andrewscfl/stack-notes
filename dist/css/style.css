@@ -40,7 +40,9 @@ p, h2, a, .SN-Notes, .save, .delete, .code {
   width: 2.8rem !important; }
 
 .mini-new_note {
-  width: 55% !important; }
+  width: 26px !important;
+  position: fixed;
+  bottom: 1px !important; }
 
 .mini-notes {
   overflow: hidden !important; }
@@ -7627,6 +7629,7 @@ readers do not read off random characters that represent icons */
   border-radius: 5px;
   min-width: 100px;
   overflow-y: scroll;
+  overflow-x: hidden !important;
   transition-duration: 0.2s; }
   .SN-main-sidebar .SN-main-sidebar-content .SN-main-sidebar-elem {
     background-color: #242424;
@@ -7636,7 +7639,8 @@ readers do not read off random characters that represent icons */
     color: white;
     cursor: pointer;
     z-index: 99999999;
-    box-shadow: 0 2px 16px 0 #222223ad; }
+    box-shadow: 0 2px 16px 0 #222223ad;
+    transition-duration: 0.2s; }
     .SN-main-sidebar .SN-main-sidebar-content .SN-main-sidebar-elem .SN-main-sidebar-elem-title {
       color: white;
       font-family: monospace;
@@ -7654,7 +7658,8 @@ readers do not read off random characters that represent icons */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 10.8rem; }
+    width: 10.8rem;
+    transition-duration: 0.2s; }
     .SN-main-sidebar .SN-main-sidebar-controls .rotate-left,
     .SN-main-sidebar .SN-main-sidebar-controls .rotate-right {
       -webkit-animation-duration: 0.2s;
@@ -7677,13 +7682,16 @@ readers do not read off random characters that represent icons */
   to {
     -webkit-transform: rotate(0deg); } }
     .SN-main-sidebar .SN-main-sidebar-controls #minimize {
+      position: fixed;
+      bottom: 3rem;
       display: flex;
       flex-direction: column;
       margin: 0.8rem;
       border-radius: 2rem;
       padding: 0.3rem;
       width: 1rem;
-      border: 2px solid transparent; }
+      border: 2px solid transparent;
+      background: #404040; }
       .SN-main-sidebar .SN-main-sidebar-controls #minimize:hover {
         transform: scale(1.09);
         border-color: white;
@@ -7902,7 +7910,8 @@ readers do not read off random characters that represent icons */
   margin: 5px;
   background: #242424;
   border-radius: 5px;
-  color: white; }
+  color: white;
+  transition-duration: 0.2s; }
   .SN-search input {
     width: 85%;
     color: white;
