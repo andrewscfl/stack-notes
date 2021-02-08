@@ -1,7 +1,7 @@
 // this module is for "paiting" things to the DOM
 
 const { compile_code } = require("./compile"),
-      { v4: uuidv4 } = require('uuid')
+    { v4: uuidv4 } = require('uuid')
 
 
 
@@ -88,14 +88,14 @@ const paint_main_from_load = (data, filename) => {
 }
 
 const delete_ide = () => {
-  document.querySelectorAll('.delete-editor').forEach((button) => {
-    button.addEventListener('click', () => {
-      let rdm_id = button.id.split('-^-')[1]
-          console.log("We're gonna delete you motherfucker!!", rdm_id)
-      document.getElementById(`ide-bar-^-${rdm_id}`).remove()
-      document.getElementById(`${rdm_id}`).remove()
+    document.querySelectorAll('.delete-editor').forEach((button) => {
+        button.addEventListener('click', () => {
+            let rdm_id = button.id.split('-^-')[1]
+            console.log("We're gonna delete you motherfucker!!", rdm_id)
+            document.getElementById(`ide-bar-^-${rdm_id}`).remove()
+            document.getElementById(`${rdm_id}`).remove()
+        })
     })
-  })
 }
 
 const paint_sidebar = (data) => {
@@ -111,7 +111,7 @@ const paint_sidebar = (data) => {
     let builDom = document.createElement('div');
     builDom.innerHTML = inner;
     let targetFile = builDom.querySelector('.SN-main-sidebar-elem').classList[1].concat('.json');
-      // When user selects a note:
+    // When user selects a note:
     builDom.querySelector('.SN-main-sidebar-elem').addEventListener('click', (e) => {
         let response_get_file = ipc.sendSync('get-contents', targetFile);
         paint_main_from_load(response_get_file, targetFile);
@@ -204,7 +204,7 @@ const paint_new_code_block = () => {
     editorFrame.setTheme("ace/theme/idle_fingers");
 
 
-      //add event listeners for changes
+    //add event listeners for changes
     let selectors = languageSelector.querySelector('#languages');
     selectors.addEventListener('change', (event) => {
         let selected = event.target.value;
@@ -237,19 +237,27 @@ const paint_new_code_block = () => {
 
     });
 
-      //listen for code compile button press
-    $('#compile').addEventListener('click',()=>{
+    //listen for code compile button press
+    $('#compile').addEventListener('click', () => {
         let lang = languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML;
         let code = editorFrame.getValue();
-        compile_code(lang,code);
+        compile_code(lang, code).then((compiledResp) => {
+            cl(compiledResp);
+            paint_popup(`
+        <h2>Code Output:</h2>
+        <div id="build-empty-ace" style="height: 100px;">${compiledResp.stdout}</div>
+        `);
+            let frame = ace.edit(document.getElementById('build-empty-ace'));
+            frame.setTheme("ace/theme/idle_fingers");
+        });
     });
 
-      //listen for delete
-    $('.delete-editor').addEventListener('click', ()=> {
-      console.log('DELETING!', calc_id)
+    //listen for delete
+    $('.delete-editor').addEventListener('click', () => {
+        console.log('DELETING!', calc_id)
 
-      document.getElementById(`${calc_id}`).remove()
-      document.getElementById(`ide-bar-^-${calc_id}`).remove()
+        document.getElementById(`${calc_id}`).remove()
+        document.getElementById(`ide-bar-^-${calc_id}`).remove()
 
 
     });
