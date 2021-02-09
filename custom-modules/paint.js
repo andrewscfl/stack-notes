@@ -3,7 +3,30 @@
 const { compile_code } = require("./compile"),
     { v4: uuidv4 } = require('uuid')
 
+const paint_bind_compile = () => {
+    let compileButtons = document.querySelectorAll('.compile-container');
+    compileButtons.forEach((button) => {
+        let targetAcePre = button.querySelector('.target-ace').innerHTML;
+        let targetAce = document.querySelector(`#${targetAcePre}`);
+        let editorFrame = ace.edit(targetAce);
+        editorFrame.setTheme("ace/theme/idle_fingers");
+        let targetButton = button.querySelector('#compile');
+        targetButton.addEventListener('click', () => {
+            let lang = button.querySelector('.compiler-lang').innerHTML;
+            let code = editorFrame.getValue();
+            compile_code(lang, code).then((compiledResp) => {
+                cl(compiledResp);
+                paint_popup(`
+            <h2>Code Output:</h2>
+            <div id="build-empty-ace" style="height: 100px;">${compiledResp.stdout}</div>
+            `);
+                let frame = ace.edit(document.getElementById('build-empty-ace'));
+                frame.setTheme("ace/theme/idle_fingers");
+            });
+        });
 
+    });
+}
 
 const write_log = () => {
     console.log('worked buddy');
@@ -83,8 +106,9 @@ const paint_main_from_load = (data, filename) => {
                 sel.querySelector('#languages').value = "JavaScript";
         }
 
-
+        
     });
+    paint_bind_compile();
 }
 
 const delete_ide = () => {
@@ -238,19 +262,7 @@ const paint_new_code_block = () => {
     });
 
     //listen for code compile button press
-    $('#compile').addEventListener('click', () => {
-        let lang = languageSelector.getElementsByClassName('compiler-lang')[0].innerHTML;
-        let code = editorFrame.getValue();
-        compile_code(lang, code).then((compiledResp) => {
-            cl(compiledResp);
-            paint_popup(`
-        <h2>Code Output:</h2>
-        <div id="build-empty-ace" style="height: 100px;">${compiledResp.stdout}</div>
-        `);
-            let frame = ace.edit(document.getElementById('build-empty-ace'));
-            frame.setTheme("ace/theme/idle_fingers");
-        });
-    });
+    paint_bind_compile();
 
     //listen for delete
     $('.delete-editor').addEventListener('click', () => {

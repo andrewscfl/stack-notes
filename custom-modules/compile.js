@@ -1,6 +1,7 @@
 
 const compile_code = (lang, code) => {
     const compile_prom = new Promise((resolve, reject) => {
+        console.log('firing off network request');
         let fetchObj = {
             "language": `${lang}`,
             "source": `${code}`,
