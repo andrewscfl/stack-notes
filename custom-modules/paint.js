@@ -39,7 +39,15 @@ const clear_main_pain = () => {
 }
 
 const init_paint = () => {
+    let notes = document.getElementsByClassName('SN-main-sidebar-elem'),
+        noteArr = []
+
     document.querySelector('.SN-main-sidebar-content').innerHTML = "";
+    const clearNotes = () => {
+      for(let i = 0; i <= notes.length - 1; i++) { noteArr.push(notes[i]) }
+      noteArr.forEach((note) => { note.remove() })
+    }
+    clearNotes()
     let data = ipc.sendSync('init');
     data.forEach((doc) => {
         let doc_id = doc.fp.replace('.json', '');
@@ -106,7 +114,7 @@ const paint_main_from_load = (data, filename) => {
                 sel.querySelector('#languages').value = "JavaScript";
         }
 
-        
+
     });
     paint_bind_compile();
 }

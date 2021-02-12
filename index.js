@@ -176,8 +176,8 @@ ipcMain.on('del-note', (event, args) => {
 
 
 ipcMain.on('search', (event, args) => {
-  let term = args,
-      resArr = []
+  let term = args
+
   console.log(`search term here ${args}`);
 
   fs.readFile('files/track.json', 'utf-8', (err, data) => {

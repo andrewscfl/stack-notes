@@ -31,7 +31,6 @@ function $(elem) {
         //end event listeners for changes
     });
   //search event
-    
     $('.search-button').addEventListener('click', () => {
       io.Search();
     });
