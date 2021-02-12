@@ -1,6 +1,8 @@
 let paint = require('./paint'),
     fs = require('fs')
 
+const $ = (elem) => { return document.querySelector(elem); }
+
 const write_File = (data) => {
     let response = ipc.sendSync('write-Note', data);
     return response;
@@ -102,36 +104,62 @@ const Create = () => {
 }
 
 const Search = () => {
-
     let query = $('#snSearch').value,
         resArr = [],
-        notes = document.getElementsByClassName('SN-main-sidebar-elem')
+        notes = document.getElementsByClassName('SN-main-sidebar-elem'),
+        noteArr = []
 
-        // First clear out notes from DOM:
-    $('.SN-main-sidebar-content').innerHTML = ''
-        // Get Results:
-    ipc.on('search-results', (events, args) => {
-        //FOR EACH FILE THAT CONTAINS A TERM THIS WILL FIRE WITH THE FILENAME AS ARGS
+    if(query !== '' || !(query.length === 0 || !this.trim()) ) {
 
-      console.log('result ->', args)
-      resArr.push(args)
-      if(args.includes('.json')) {
-            // Create object out of each filename:
-        let doc_id = args.replace('.json', ''),
-            document_data = ipc.sendSync('get-contents', args),
-            fileObj = {
-              uid: doc_id,
-              notetitle: document_data.title,
-              body: document_data.content
-        };
-          // paint to DOM:
-        paint.paint_sidebar(fileObj);
-      }
-        console.log('resArr', resArr)
-    });
-    ipc.send('search', query);
+        // Search UX
+      $('.search-button').style.display = 'none'
+      $('.clear-search').style.display = 'block'
 
+          // First clear out notes from DOM:
+      for(let i = 0; i <= notes.length - 1; i++) { noteArr.push(notes[i]) }
+      noteArr.forEach((note) => { note.remove() })
 
+      setTimeout(() => {
+        if(notes.length < 1) {
+          no_res = `
+            <div class="no_results">
+              <span>No results found.</span>
+            </div>
+          `
+          $('.SN-main-sidebar-content').innerHTML = no_res
+        }
+      }, 100)
+
+          // Get Results:
+      ipc.on('search-results', (events, args) => {
+          //FOR EACH FILE THAT CONTAINS A TERM THIS WILL FIRE WITH THE FILENAME AS ARGS
+
+        console.log('result ->', args)
+              resArr.push(args)
+              if(args.includes('.json')) {
+                    // Create object out of each filename:
+                let doc_id = args.replace('.json', ''),
+                    document_data = ipc.sendSync('get-contents', args),
+                    fileObj = {
+                      uid: doc_id,
+                      notetitle: document_data.title,
+                      body: document_data.content
+                };
+                  // paint to DOM:
+                paint.paint_sidebar(fileObj);
+              }
+                console.log('resArr', resArr)
+            });
+            ipc.send('search', query);
+
+              // Clear search
+          $('.clear-search').addEventListener('click', () => {
+              $('.search-button').style.display = 'block'
+              $('.clear-search').style.display = 'none'
+              $('#snSearch').value = ''
+              paint.init_paint();
+          })
+    }
 }
 
 const DeleteEditor = () => {

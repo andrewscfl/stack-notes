@@ -7656,6 +7656,10 @@ readers do not read off random characters that represent icons */
       color: white;
       font-family: monospace;
       font-weight: 400; }
+  .SN-main-sidebar .SN-main-sidebar-content .no_results {
+    font-family: monospace;
+    color: white;
+    margin: 1rem; }
   .SN-main-sidebar .SN-main-sidebar-controls {
     position: absolute;
     bottom: 0px;
@@ -7924,6 +7928,16 @@ readers do not read off random characters that represent icons */
     color: white;
     background-color: transparent;
     border-color: transparent; }
+  .SN-search .clear-search,
+  .SN-search .search-button {
+    background: transparent;
+    border: transparent; }
+  .SN-search .clear-search {
+    display: none; }
+  .SN-search .no_results {
+    font-family: monospace;
+    color: white;
+    margin: 1rem; }
   .SN-search svg {
     margin: 0 10px 0 15px;
     color: white; }

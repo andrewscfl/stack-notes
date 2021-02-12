@@ -18,6 +18,22 @@
     // border-bottom-color: $gray-4;
   }
 
+  .clear-search,
+  .search-button {
+    background: transparent;
+    border: transparent;
+  }
+
+  .clear-search {
+    display: none;
+  }
+
+  .no_results {
+    font-family: $main-font;
+    color: white;
+    margin: 1rem;
+  }
+
   svg {
     margin: 0 10px 0 15px;
     color: white;
