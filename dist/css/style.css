@@ -7801,25 +7801,26 @@ readers do not read off random characters that represent icons */
   .SN-main-sidebar-controls-plus:hover {
     background: #37b812; }
 
-.popup-container {
+.popup-container,
+.popup-container-code {
   position: fixed;
-  top: 30vh;
   right: 0;
   left: 0;
   margin: 0 auto;
-  max-width: 300px;
   padding: 30px;
-  background-color: #242424;
   color: white;
   display: flex;
   flex-direction: column;
   text-align: center;
   z-index: 999999999;
   text-align: left;
-  border-radius: 5px; }
-  .popup-container .popup-input {
+  border-radius: 5px;
+  background-color: #212121; }
+  .popup-container .popup-input,
+  .popup-container-code .popup-input {
     width: 100%; }
-    .popup-container .popup-input input {
+    .popup-container .popup-input input,
+    .popup-container-code .popup-input input {
       width: 100%;
       background-color: #404040;
       border-radius: 5px;
@@ -7827,20 +7828,25 @@ readers do not read off random characters that represent icons */
       padding: 8px 0 8px 8px;
       color: white;
       font-family: monospace; }
-      .popup-container .popup-input input:focus {
+      .popup-container .popup-input input:focus,
+      .popup-container-code .popup-input input:focus {
         border: none; }
-    .popup-container .popup-input ::placeholder {
+    .popup-container .popup-input ::placeholder,
+    .popup-container-code .popup-input ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: white;
       opacity: 1;
       /* Firefox */ }
-    .popup-container .popup-input :-ms-input-placeholder {
+    .popup-container .popup-input :-ms-input-placeholder,
+    .popup-container-code .popup-input :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
       color: white; }
-    .popup-container .popup-input ::-ms-input-placeholder {
+    .popup-container .popup-input ::-ms-input-placeholder,
+    .popup-container-code .popup-input ::-ms-input-placeholder {
       /* Microsoft Edge */
       color: white; }
-  .popup-container .new_note {
+  .popup-container .new_note,
+  .popup-container-code .new_note {
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
@@ -7848,23 +7854,41 @@ readers do not read off random characters that represent icons */
     background-color: #3ECF14;
     text-align: center;
     width: 97%; }
-    .popup-container .new_note:hover {
+    .popup-container .new_note:hover,
+    .popup-container-code .new_note:hover {
       background-color: #30a010;
       cursor: pointer; }
-  .popup-container .btn-delete {
+  .popup-container .btn-delete,
+  .popup-container-code .btn-delete {
     background-color: #f92672;
     border: 1px solid #f92672;
     width: 85%; }
-    .popup-container .btn-delete:hover {
+    .popup-container .btn-delete:hover,
+    .popup-container-code .btn-delete:hover {
       background-color: #e60657; }
-  .popup-container .btn-cancel {
+  .popup-container .btn-cancel,
+  .popup-container-code .btn-cancel {
     background-color: transparent;
     border: 1px solid #404040;
     width: 85%; }
-    .popup-container .btn-cancel:hover {
+    .popup-container .btn-cancel:hover,
+    .popup-container-code .btn-cancel:hover {
       background-color: #404040; }
 
-.popup-close {
+.popup-container {
+  max-width: 300px;
+  top: 30vh; }
+
+.popup-container-code {
+  top: 20vh;
+  width: 700px;
+  height: 300px;
+  box-shadow: 0 2px 16px 0 #222223ad; }
+  .popup-container-code .ace_editor {
+    height: 16rem !important; }
+
+.popup-close,
+.popup-close-code {
   color: white;
   position: absolute;
   top: 10px;

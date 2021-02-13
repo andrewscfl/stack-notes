@@ -1,19 +1,18 @@
-.popup-container {
+.popup-container,
+.popup-container-code {
     position: fixed;
-    top: 30vh;
     right:0;
     left:0;
     margin:0 auto;
-    max-width: 300px;
     padding: 30px;
-    background-color: $gray-2;
     color: white;
     display: flex;
     flex-direction: column;
-    text-align:center;
+    text-align: center;
     z-index: 999999999;
     text-align: left;
     border-radius: 5px;
+    background-color: darken($gray-2, 1%);
 
     .popup-input {
       width: 100%;
@@ -85,7 +84,24 @@
   }
 }
 
-.popup-close {
+.popup-container {
+  max-width: 300px;
+  top: 30vh;
+}
+
+.popup-container-code {
+  top: 20vh;
+  width: 700px;
+  height: 300px;
+  box-shadow: $shadow;
+
+  .ace_editor {
+    height: 16rem !important;
+  }
+}
+
+.popup-close,
+.popup-close-code {
     color: white;
     position: absolute;
     top: 10px;

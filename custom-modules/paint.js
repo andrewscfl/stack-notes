@@ -16,7 +16,7 @@ const paint_bind_compile = () => {
             let code = editorFrame.getValue();
             compile_code(lang, code).then((compiledResp) => {
                 cl(compiledResp);
-                paint_popup(`
+                paint_popup_compile(`
             <h2>Code Output:</h2>
             <div id="build-empty-ace" style="height: 100px;">${compiledResp.stdout}</div>
             `);
@@ -123,7 +123,7 @@ const delete_ide = () => {
     document.querySelectorAll('.delete-editor').forEach((button) => {
         button.addEventListener('click', () => {
             let rdm_id = button.id.split('-^-')[1]
-            console.log("We're gonna delete you motherfucker!!", rdm_id)
+            console.log("Deleting:", rdm_id)
             document.getElementById(`ide-bar-^-${rdm_id}`).remove()
             document.getElementById(`${rdm_id}`).remove()
         })
@@ -156,7 +156,7 @@ const paint_sidebar = (data) => {
 }
 
 const paint_popup = (inner) => {
-    let wrapper = document.createElement('div');
+  let wrapper = document.createElement('div');
     wrapper.innerHTML = `
         <div class="popup-container">
           <div class="popup-close"><i class="fas fa-times"></i></div>
@@ -165,8 +165,23 @@ const paint_popup = (inner) => {
       `;
 
     document.body.appendChild(wrapper);
-    $('.popup-close').addEventListener('click', () => {
-        $('.popup-container').remove(); // fadeOut() isn't a function?
+      $('.popup-close').addEventListener('click', () => {
+          $('.popup-container').remove();
+      });
+}
+
+const paint_popup_compile = (inner) => {
+  let wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+      <div class="popup-container-code">
+        <div class="popup-close-code"><i class="fas fa-times"></i></div>
+        ${inner}
+      </div>
+    `;
+
+  document.body.appendChild(wrapper);
+    $('.popup-close-code').addEventListener('click', () => {
+        $('.popup-container-code').remove();
     });
 }
 
@@ -291,6 +306,7 @@ module.exports = {
     paint_main_from_load,
     paint_sidebar,
     paint_popup,
+    paint_popup_compile,
     paint_confirm,
     paint_new_code_block
 };
