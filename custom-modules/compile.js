@@ -17,6 +17,8 @@ const compile_code = (lang, code) => {
             .then(res => res.json())
             .then(res => {
                 resolve(res);
+            }).catch(()=>{
+                reject({error: "error compiling"});
             });
     });
 return compile_prom;

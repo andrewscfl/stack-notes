@@ -22,6 +22,14 @@ const paint_bind_compile = () => {
             `);
                 let frame = ace.edit(document.getElementById('build-empty-ace'));
                 frame.setTheme("ace/theme/idle_fingers");
+            }).catch((err) => {
+                cl(err);
+                paint_popup_compile(`
+            <h2>Code Output:</h2>
+            <div id="build-empty-ace" style="height: 100px;">there was an error compiling your code, please check your internet connection and try again.</div>
+            `);
+                let frame = ace.edit(document.getElementById('build-empty-ace'));
+                frame.setTheme("ace/theme/idle_fingers");
             });
         });
 
