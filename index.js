@@ -213,3 +213,32 @@ ipcMain.on('search', (event, args) => {
 
 
 });
+
+
+ipcMain.on('update-version', (event, args) => {
+    let versionNo = args;
+    fs.readFile('./files/status.json', 'utf-8', (err, readdata) => {
+      let data = JSON.parse(readdata);
+      let version = data.last_update;
+      if (version != versionNo){
+        fs.writeFile('./files/status.json', `{"last_update" : ${versionNo}}`, (err)=>{
+          if(err){
+            event.returnValue = {success: false};
+          }
+          else{
+            event.returnValue = {
+              success: true,
+              newVersion: true
+            }
+          }
+        }); 
+      }
+      else{
+        event.returnValue = {
+          success: true,
+          newVersion: false
+        };
+      }
+
+    });
+});

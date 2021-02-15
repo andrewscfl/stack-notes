@@ -2,6 +2,7 @@ let ipc = require('electron').ipcRenderer;
 let compile = require('./custom-modules/compile');
 let paint = require('./custom-modules/paint');
 let io = require('./custom-modules/io-frontend');
+let updates = require('./custom-modules/rest');
 
 
 function cl(log) { return console.log(log); }
@@ -13,6 +14,7 @@ function $(elem) {
 (function () {
 
     paint.init_paint();
+    updates.updates_get();
   // New note UI
     $('.SN-main-sidebar-controls-plus').addEventListener('click', () => {
         io.Create();
