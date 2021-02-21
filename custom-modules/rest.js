@@ -1,7 +1,7 @@
 const { ipcMain } = require("electron");
 const { fstat } = require("fs");
 
-const url = "http://localhost:3000";
+const url = "http://ec2-3-139-109-240.us-east-2.compute.amazonaws.com:3000";
 //this will need to be updated when we have the rest api built and working
 
 const updates_get = () => {
