@@ -7,7 +7,7 @@ const paint_bind_compile = () => {
     let compileButtons = document.querySelectorAll('.compile-container');
     compileButtons.forEach((button) => {
         let targetAcePre = button.querySelector('.target-ace').innerHTML;
-        let targetAce = document.querySelector(`#${targetAcePre}`);
+        let targetAce = document.getElementById(`${targetAcePre}`);
         let editorFrame = ace.edit(targetAce);
         editorFrame.setTheme("ace/theme/idle_fingers");
         let targetButton = button.querySelector('#compile');
