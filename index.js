@@ -218,6 +218,12 @@ ipcMain.on('search', (event, args) => {
 ipcMain.on('update-version', (event, args) => {
     let versionNo = args;
     fs.readFile('./files/status.json', 'utf-8', (err, readdata) => {
+      if(err){
+        event.returnValue = {
+          success: false,
+          newVersion: false
+        };
+      }
       let data = JSON.parse(readdata);
       let version = data.last_update;
       if (version != versionNo){
